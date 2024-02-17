@@ -4,7 +4,7 @@ from lib import st7789py, keyboard, microhydra
 from font import vga1_8x16 as font
 
 
-# version: 0.1
+# version: 1.0
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Function Definitions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
