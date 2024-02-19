@@ -49,3 +49,13 @@ This is a straightforward app which uses the wifi config set in MicroHydra, to c
 -----
 
 <br/>
+
+### tinyKnight
+Author: [foopod](https://github.com/foopod)
+
+A cute little endless runner game for the Cardputer, by Jono Shields
+
+-----
+
+<br/>
+
