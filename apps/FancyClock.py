@@ -13,8 +13,8 @@ min_bright = const(22000)
 bright_peak = const(65535)
 bright_step = const(500)
 
-#a simple clock program for the cardputer
-
+# a simple clock program for the cardputer
+# v1.1
 
 tft = st7789py.ST7789(
     SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
@@ -142,13 +142,20 @@ def read_battery_level(adc):
     read approx battery level on the adc and return as int range 0 (low) to 3 (high)
     """
     raw_value = adc.read_uv() # vbat has a voltage divider of 1/2
-
-    if raw_value < 525000: # 1.05v
+    
+    # more real-world data is needed to dial in battery level.
+    # the original values were low, so they will be adjusted based on feedback.
+    
+    #originally 525000 (1.05v)
+    if raw_value < 1575000: #3.15v
         return 0
-    if raw_value < 1050000: # 2.1v
+    #originally 1050000 (2.1v)
+    if raw_value < 1750000: #3.5v
         return 1
-    if raw_value < 1575000: # 3.15v
+    #originally 1575000 (3.15v)
+    if raw_value < 1925000: #3.85v
         return 2
+    # 2100000 (4.2v)
     return 3 # 4.2v or higher
 
 
