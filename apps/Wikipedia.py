@@ -2,9 +2,17 @@ import requests, network, json, time, math
 from machine import SPI, Pin, PWM, freq, reset
 from lib import st7789py, keyboard, microhydra
 from font import vga1_8x16 as font
+import neopixel
 
+"""
+A simple app to query Wikipedia for page summaries.
 
-# version: 1.0
+v1.1
+
+Changes:
+added led indicator.
+
+"""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Function Definitions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -13,8 +21,10 @@ def dotted_hline(tft, y_position, color):
         tft.pixel(i,y_position, color)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~ global objects/vars ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 freq(240000000)
+ledPin = Pin(21)
+led = neopixel.NeoPixel(ledPin, 1, bpp=3)
+
 tft = st7789py.ST7789(
     SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
     135,
@@ -44,6 +54,7 @@ mid_color = microhydra.mix_color565(ui_color, bg_color)
 kb = keyboard.KeyBoard()
 
 nic = network.WLAN(network.STA_IF)
+
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~fetch article~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,21 +114,31 @@ def fetch_article():
     if url == "https://en.wikipedia.org/api/rest_v1/page/summary/":
         url = "https://en.wikipedia.org/api/rest_v1/page/random/summary/"
     
+    
+    led.fill((10,0,0)); led.write() # set led
+    
     tft.fill(bg_color)
     tft.text(font, 'Connecting to WIFI...', 36, 30, ui_color, bg_color)
-
+    
+    
     if not nic.active(): # turn on wifi if it isn't already
         nic.active(True)
-        
+    
+    led.fill((10,10,0)); led.write() # set led
+    
     if not nic.isconnected(): # try connecting
         try:
             nic.connect(wifi_ssid, wifi_pass)
         except OSError as e:
             print("Had this error when connecting:",e)
-
+    
+    
+    
     while not nic.isconnected():
-        time.sleep_ms(5)
-
+        time.sleep_ms(10)
+    
+    led.fill((0,10,10)); led.write() # set led
+    
     print("Connected!")
     tft.fill(bg_color)
     tft.text(font, 'Connected!', 80, 30, ui_color, bg_color)
@@ -133,7 +154,7 @@ def fetch_article():
             tft.fill(bg_color)
             tft.text(font, 'Redirecting to:', 60, 30, ui_color, bg_color)
             tft.text(font, '"' + redirect_name + '"', 112 - (len(redirect_name) * 4), 60, ui_color, bg_color)
-            time.sleep_ms(5)
+            time.sleep_ms(10)
             response = requests.get(url)
             print(response.status_code)
         elif response.status_code == 303:
@@ -141,7 +162,7 @@ def fetch_article():
             url = response.headers['location']
             tft.fill(bg_color)
             tft.text(font, 'Redirecting...:', 60, 30, ui_color, bg_color)
-            time.sleep_ms(5)
+            time.sleep_ms(10)
             response = requests.get(url)
         else: #404 or another error
             tft.fill(bg_color)
@@ -149,7 +170,9 @@ def fetch_article():
             time.sleep(2)
             url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + user_query()
             response = requests.get(url)
-            
+        
+    led.fill((0,40,0)); led.write() # set led    
+    
     result = response.content
     nic.active(False) #turn off wifi
 
@@ -172,7 +195,9 @@ def fetch_article():
     #page lines
     for i in range(0,7):
         dotted_hline(tft, 16 + (17*i), mid_color)
-
+    
+    led.fill((0,0,0)); led.write() # set led  
+    
     return lines
     
     
@@ -247,4 +272,5 @@ while True:
     else:
         time.sleep_ms(10)
     
+
 

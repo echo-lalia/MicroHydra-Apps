@@ -33,7 +33,7 @@ Make sure to also give any additional instructions that are needed for installin
 <br/>
 
 ### FancyClock
-Author: echo-lalia | MIT License | Version: 1.0
+Author: echo-lalia | MIT License | Version: 1.1
 
 This is a simple clock app that you can run when you just want something on your cardputer's display. It displays the time, date, and battery level, and bounces around the screen, leaving a colorful, somewhat 3d-looking trail behind it.
 
@@ -42,10 +42,20 @@ This is a simple clock app that you can run when you just want something on your
 <br/>
 
 ### Wikipedia
-Author: echo-lalia | MIT License | Version: 1.0
+Author: echo-lalia | MIT License | Version: 1.1
 
 This is a straightforward app which uses the wifi config set in MicroHydra, to connect to a wifi network, and fetch the summary of a Wikipedia article. 
 
 -----
 
 <br/>
+
+### tinyKnight
+Author: [foopod](https://github.com/foopod)
+
+A cute little endless runner game for the Cardputer, by Jono Shields
+
+-----
+
+<br/>
+
