@@ -59,3 +59,12 @@ A cute little endless runner game for the Cardputer, by Jono Shields
 
 <br/>
 
+### FlappyStamp
+Author: echo-lalia | MIT License | Version: 1.0
+
+A simple game concept redesigned for the cardputer. Play as the M5Stamp and dodge pillars of PCBs; try to beat your high score!
+
+-----
+
+<br/>
+
