@@ -162,7 +162,10 @@ def main():
                 current_units = "minutes"
                 redraw = True
             elif "BSPC" in pressed_keys and "BSPC" not in prev_pressed_keys:
-                time_value = time_value[:-1]
+                if len(time_value) > 1:
+                    time_value = time_value[:-1]
+                else:
+                    time_value = "0"
             else:
                 for key in pressed_keys:
                     if len(key) == 1 and key not in prev_pressed_keys:
