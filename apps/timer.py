@@ -170,9 +170,12 @@ def main():
                 for key in pressed_keys:
                     if len(key) == 1 and key not in prev_pressed_keys:
                         if key in numbers:
-                            if key is "." and "." in time_value:
-                                # do nothing
-                               print("haha") 
+                            if key == "." and "." in time_value:
+                                # max 1 decimal point
+                                pass
+                            elif key == "0" and time_value == "0":
+                                # can't keep adding if the first digit it zeros
+                                pass
                             else:
                                 time_value += key
                                 
