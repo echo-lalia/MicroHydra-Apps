@@ -42,7 +42,7 @@ This is a simple clock app that you can run when you just want something on your
 <br/>
 
 ### Wikipedia
-Author: echo-lalia | MIT License | Version: 1.1
+Author: echo-lalia | MIT License | Version: 1.2
 
 This is a straightforward app which uses the wifi config set in MicroHydra, to connect to a wifi network, and fetch the summary of a Wikipedia article. 
 
@@ -68,3 +68,11 @@ A simple game concept redesigned for the cardputer. Play as the M5Stamp and dodg
 
 <br/>
 
+### timer
+Author: [foopod](https://github.com/foopod)
+
+A kitchen timer app, by Jono Shields
+
+-----
+
+<br/>
