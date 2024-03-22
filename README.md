@@ -76,3 +76,13 @@ A kitchen timer app, by Jono Shields
 -----
 
 <br/>
+
+### chaosDice
+Author: echo-lalia | MIT License | Version: 1.0
+
+This dice app lets you roll a digital die (2,4,6,8,10,12,20, or 100 sides).   
+The app uses the built in ADC's to generate a long random seed (which is displayed as an animation when you roll) and uses some simple math to convert it into a true random number within your chosen die range. Results have been tested casually (500000 rolls visualized in a histogram, for each die type) and the rolls appear to be pretty uniform in distribution. 
+
+-----
+
+<br/>
