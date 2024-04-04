@@ -85,12 +85,13 @@ class SleepManager:
     def store(self):
         """Store our state in the RTC memory"""
         # check if we live in the apps path
-        applist = os.listdir("/apps")
-        if "lowpowerclock" in applist:
-            rtcdata = _PATH_HERE_FLASH + APP_NAME + _SEPARATOR + json.dumps(self.state)
-        else:
-            # assume we live on the sdcard
+        path_list = __name__.replace('.','/').split('/')
+        if path_list[0] == "sd" or path_list[1] == "sd":
             rtcdata = _PATH_HERE_SD + APP_NAME + _SEPARATOR + json.dumps(self.state)
+        else:
+            rtcdata = _PATH_HERE_FLASH + APP_NAME + _SEPARATOR + json.dumps(self.state)
+        print(path_list)
+        print(rtcdata)
         RTC.memory(rtcdata)
 
     def go_to_sleep(self):

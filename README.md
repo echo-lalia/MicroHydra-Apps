@@ -86,3 +86,13 @@ The app uses the built in ADC's to generate a long random seed (which is display
 -----
 
 <br/>
+
+### Clock_LE
+Author: echo-lalia | MIT License | Version: 1.0
+
+This is another simple clock app. This time, the app has been specifically designed to use as little power as possible.   
+The app runs at a cpu frequency of 40mhz (rather than the official top freq of 240mhz), gently lowers to a really low display brightness when no keys are pressed, and puts the device into deep sleep mode after some time (and can be woken up with G0)
+
+-----
+
+<br/>
