@@ -361,7 +361,7 @@ def draw_clock():
         )
     
     
-    date_string = f"{_MONTH_NAMES[MONTH]} {DAY}"
+    date_string = f"{_MONTH_NAMES[MONTH-1]} {DAY}"
     DISPLAY.bitmap_text(font, date_string, CLOCK_X+_DATE_X_OFFSET+1, CLOCK_Y+_DATE_Y_OFFSET+1, 0)
     DISPLAY.bitmap_text(
         font, date_string, CLOCK_X+_DATE_X_OFFSET, CLOCK_Y+_DATE_Y_OFFSET,
