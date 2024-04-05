@@ -1,6 +1,7 @@
 <p align="center">
     <a href="https://github.com/echo-lalia/Cardputer-MicroHydra" alt="MicroHydra">
         <img src="https://img.shields.io/badge/MicroHydra-purple" /></a>
+ &nbsp;&nbsp;
     <a href="https://github.com/echo-lalia/microhydra-frozen" alt="MicroHydra Firmware">
         <img src="https://img.shields.io/badge/Firmware-purple" /></a>
 </p>
