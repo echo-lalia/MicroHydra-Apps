@@ -1,5 +1,9 @@
-
-<img alt="Static Badge" src="https://img.shields.io/badge/MicroHydra-purple?link=https%3A%2F%2Fgithub.com%2Fecho-lalia%2FCardputer-MicroHydra"> &nbsp;&nbsp;&nbsp; <img alt="Static Badge" src="https://img.shields.io/badge/Firmware-purple?link=https%3A%2F%2Fgithub.com%2Fecho-lalia%2Fmicrohydra-frozen">
+<p align="center">
+    <a href="https://github.com/echo-lalia/Cardputer-MicroHydra" alt="MicroHydra">
+        <img src="https://img.shields.io/badge/MicroHydra-purple" /></a>
+    <a href="https://github.com/echo-lalia/microhydra-frozen" alt="MicroHydra Firmware">
+        <img src="https://img.shields.io/badge/Firmware-purple" /></a>
+</p>
 
 # MicroHydra Apps!
 This is a companion repository with a collection of apps for MicroHydra. 
