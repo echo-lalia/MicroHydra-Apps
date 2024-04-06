@@ -4,6 +4,9 @@
  &nbsp;&nbsp;
     <a href="https://github.com/echo-lalia/microhydra-frozen" alt="MicroHydra Firmware">
         <img src="https://img.shields.io/badge/Firmware-purple" /></a>
+  &nbsp;&nbsp;
+    <a href="https://github.com/echo-lalia/Cardputer-MicroHydra/wiki" alt="Wiki">
+        <img src="https://img.shields.io/badge/Wiki-slateblue" /></a>
 </p>
 
 # MicroHydra Apps!
