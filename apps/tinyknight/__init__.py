@@ -3,11 +3,11 @@ import time
 import random
 
 from lib import keyboard
-from tinyknightlib import st7789py
 
-from tinyknightlib import knight_sprites as knight_bitmap
-from tinyknightlib import vga1_bold_16x32 as big_font
-from tinyknightlib import vga1_8x8 as small_font
+from . import st7789py
+from . import knight_sprites as knight_bitmap
+from . import vga1_bold_16x32 as big_font
+from . import vga1_8x8 as small_font
 
 tft = st7789py.ST7789(
     SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
