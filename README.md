@@ -107,3 +107,14 @@ The app runs at a cpu frequency of 40mhz (rather than the official top freq of 2
 -----
 
 <br/>
+
+
+### GameOfLife
+Author: echo-lalia | MIT License | Version: 1.0
+
+This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) on a 60x34 grid (with edge wrapping).   
+Pressing space pauses/plays the simulation, ctrl+space moves it one step, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
+
+-----
+
+<br/>
