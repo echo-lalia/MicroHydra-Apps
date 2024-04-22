@@ -118,3 +118,14 @@ Pressing space pauses/plays the simulation, ctrl+space moves it one step, backsp
 -----
 
 <br/>
+
+
+### IR
+Author: [ndrnmnk](https://github.com/ndrnmnk)
+
+Infrared codes sender and reciever(untested) app.
+WARING: It requires popup_options_2d function, which is not implemented yet, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
+
+-----
+
+<br/>
