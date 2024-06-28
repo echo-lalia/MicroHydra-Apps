@@ -1,0 +1,3 @@
+[submodule "apps/IR"]
+	path = apps/IR
+	url = https://github.com/ndrnmnk/mh_infrared
