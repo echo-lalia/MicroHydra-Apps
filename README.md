@@ -116,8 +116,19 @@ This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedi
 Pressing space pauses/plays the simulation, ctrl+space moves it one step, backspace resets the grid, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
 
 -----
-
 <br/>
+
+
+### IR
+Author: [ndrnmnk](https://github.com/ndrnmnk)
+
+
+Infrared codes sender and reciever(untested) app.
+WARING: It requires popup_options_2d function, which is not implemented yet, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
+<br/>
+
+-----
+<br />
 
 
 ### mmlPlay
