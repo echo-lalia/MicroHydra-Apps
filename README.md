@@ -120,11 +120,11 @@ Pressing space pauses/plays the simulation, ctrl+space moves it one step, backsp
 <br/>
 
 
-### IR
-Author: [ndrnmnk](https://github.com/ndrnmnk)
+### mmlPlay
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
 
-Infrared codes sender and reciever(untested) app.
-WARING: It requires popup_options_2d function, which is not implemented yet, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
+A Simple and Naive MML (Music Macro Language) player for MicroHydra.
+Note that you should input the relative path in sd card (i.e. '/sd/mml/test.mml' -> 'mml/test.mml')
 
 -----
 
