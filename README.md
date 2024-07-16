@@ -138,5 +138,13 @@ A Simple and Naive MML (Music Macro Language) player for MicroHydra.
 Note that you should input the relative path in sd card (i.e. '/sd/mml/test.mml' -> 'mml/test.mml')
 
 -----
+<br />
+
+
+### KanjiReader
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A text reader that can display Chinese & Japanese text.
+-----
 
 <br/>
