@@ -145,6 +145,7 @@ Note that you should input the relative path in sd card (i.e. '/sd/mml/test.mml'
 Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
 
 A text reader that can display Chinese & Japanese text.
+
 -----
 
 <br/>
