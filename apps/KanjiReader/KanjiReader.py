@@ -1,6 +1,10 @@
-from lib import st7789fbuf, mhconfig, keyboard, mhkanji
+from lib import st7789fbuf, mhconfig, keyboard
 import machine, time
 
+try:
+    from lib import mhkanji
+except:
+    import mhkanji
 """
 MicroHydra App Template
 Version: 1.0
