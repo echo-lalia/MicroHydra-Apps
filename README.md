@@ -147,5 +147,15 @@ Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Versio
 A text reader that can display Chinese & Japanese text.
 
 -----
+<br />
+
+
+### AppStore
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A Simple AppStore that can download APP from Github repository.
+Note that apps will be installed to '/apps' folder. You have to Launch AppStore twice to install an app.
+
+-----
 
 <br/>
