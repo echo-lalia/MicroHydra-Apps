@@ -135,7 +135,6 @@ WARING: It requires popup_options_2d function, which is not implemented yet, cop
 Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
 
 A Simple and Naive MML (Music Macro Language) player for MicroHydra.
-Note that you should input the relative path in sd card (i.e. '/sd/mml/test.mml' -> 'mml/test.mml')
 
 -----
 <br />
@@ -155,6 +154,15 @@ Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Versio
 
 A Simple AppStore that can download APP from Github repository.
 Note that apps will be installed to '/apps' folder. You have to Launch AppStore twice to install an app.
+
+-----
+<br />
+
+
+### wavPlay
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A Simple and Naive Wave player for MicroHydra.
 
 -----
 
