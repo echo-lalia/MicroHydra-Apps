@@ -215,53 +215,50 @@ def parse_mml(mml_str):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Main Loop: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def main_loop():
-    try:
-        tft_disp("Please Input MML file name:")
-        time.sleep_ms(1000)
+    tft_disp("Please Input MML file name:")
+    time.sleep_ms(1000)
 
 
-        #Read MML file
-        kb = keyboard.KeyBoard()
-        keybuf = []
-        while not 'ENT' in keybuf:
-            tmp = kb.get_new_keys()
-            if not 'BSPC' in tmp:
-                keybuf += tmp
-            else:
-                keybuf = keybuf[:-1]
+    #Read MML file
+    kb = keyboard.KeyBoard()
+    keybuf = []
+    while not 'ENT' in keybuf:
+        tmp = kb.get_new_keys()
+        if not 'BSPC' in tmp:
+            keybuf += tmp
+        else:
+            keybuf = keybuf[:-1]
 
-            tft_disp(''.join(keybuf))
+        tft_disp(''.join(keybuf))
 
-        with open('/sd/' + ''.join(keybuf[:-1]), 'r') as f:
-            mml_str = f.read()
+    with open(''.join(keybuf[:-1]), 'r') as f:
+        mml_str = f.read()
 
-        #Parse MML
-        tft_disp("Parsing MML...")
-        parsed_notes = parse_mml(mml_str)
-        tft_disp("Parse Done.")
+    #Parse MML
+    tft_disp("Parsing MML...")
+    parsed_notes = parse_mml(mml_str)
+    tft_disp("Parse Done.")
 
-        # play the parsed notes one by one
-        note_index = 0
-        while note_index < len(parsed_notes):
-            note, duration, volume = parsed_notes[note_index]
-            tft_disp(f"Note {note_index}/{len(parsed_notes)}:({note},{int(duration)},{volume})")
-            if note:
-                generate_square_wave(note, duration, (config['volume']/5)*(volume/4)*0.05)
-            else:
-                time.sleep_ms(int(duration))  # rest for the duration
-            note_index += 1
-    except Exception as e:
-        import sys
-        with open('/sd/err.log', 'w') as f:
-            sys.print_exception(e, f)
-        
-        while True:
-            msg = f"{e}"
-            tft_disp(msg[:25])
-            time.sleep_ms(1000)
-            tft_disp(msg[25:])
-            time.sleep_ms(1000)
+    # play the parsed notes one by one
+    note_index = 0
+    while note_index < len(parsed_notes):
+        note, duration, volume = parsed_notes[note_index]
+        tft_disp(f"Note {note_index}/{len(parsed_notes)}:({note},{int(duration)},{volume})")
+        if note:
+            generate_square_wave(note, duration, (config['volume']/5)*(volume/4)*0.05)
+        else:
+            time.sleep_ms(int(duration))  # rest for the duration
+        note_index += 1
 
 
 # start the main loop
-main_loop()
+try:
+    main_loop()
+except Exception as e:
+    import sys
+    with open('/log.txt', 'w') as f:
+        f.write('[WAVPLAYER]')
+        sys.print_exception(e, f)
+    
+    tft.text(text=f"{e}",x=0, y=0,color=config['ui_color'])
+    tft.show()
