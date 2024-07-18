@@ -131,12 +131,15 @@ menu = HydraMenu.Menu(display_py = tft)
 #--------------------------------------------------------------------------------------------------
 
 def handle_download(name,url):
-    with open("/.storeinfo","w") as f:
-        f.write(f"{name} {url}")
+    if url != 'dir':
+        with open("/.storeinfo","w") as f:
+            f.write(f"{name} {url}")
+        
+        tft.text(text=f"Launch Store Again to install {name}",font=font, x0=0, y0=50,color=CONFIG_UICOLOR)
+    else:
+        tft.text(text=f"Directory Not Supported.",font=font, x0=0, y0=50,color=CONFIG_UICOLOR)
     
-    tft.text(text=f"Launch Store Again to install {name}",font=font, x0=0, y0=50,color=CONFIG_UICOLOR)
     time.sleep(1)
-    
     machine.reset()
 
 #--------------------------------------------------------------------------------------------------
