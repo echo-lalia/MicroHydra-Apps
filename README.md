@@ -153,6 +153,7 @@ A text reader that can display Chinese & Japanese text.
 Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
 
 A Simple AppStore that can download APP from Github repository.
+
 Note that apps will be installed to '/apps' folder. You have to Launch AppStore twice to install an app.
 
 -----
@@ -165,5 +166,18 @@ Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Versio
 A Simple and Naive Wave player for MicroHydra.
 
 -----
-
 <br/>
+
+
+### MHBasic
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+Nothing pairs better than BASIC and a card computer. 
+
+MHBasic implements a simple BASIC interpreter and REPL, with a nostalgic flavor of the 1980s. 
+
+Note that the documentation is in the comments at the beginning of **MHBasic.py**, and some functionalities still require stability improvements.
+
+-----
+
+<br />
