@@ -87,9 +87,9 @@ if '.storeinfo' in os.listdir():
             else:
                 path_i = f'/sd/apps/{name}'
                 
-            tft.text(text=f"Writing to path:",font=font, x0=0, y0=90,color=CONFIG_UICOLOR)
+            tft.text(text=f"Writing to path:",font=font, x0=0, y0=96,color=CONFIG_UICOLOR)
             tft.text(text=path_i,font=font, x0=0, y0=112,color=CONFIG_UICOLOR)
-            with open(path_i,'w',encoding='utf-8') as f:
+            with open(path_i,'w',encoding='utf-8',buffering=0) as f:
                 f.write(resb.text)
             
             os.remove("/.storeinfo")
@@ -98,7 +98,7 @@ if '.storeinfo' in os.listdir():
     except Exception as e:
         import sys
         with open('/log.txt', 'w') as f:
-            f.write('[REPL]')
+            f.write('[APPSTORE]')
             sys.print_exception(e, f)
         
         tft.text(text=f"{e}",font=font, x0=0, y0=0,color=CONFIG_UICOLOR)
@@ -196,7 +196,7 @@ try:
 except Exception as e:
     import sys
     with open('/log.txt', 'w') as f:
-        f.write('[REPL]')
+        f.write('[APPSTORE]')
         sys.print_exception(e, f)
     
     tft.text(text=f"{e}",font=font, x0=0, y0=0,color=CONFIG_UICOLOR)
