@@ -3,7 +3,7 @@ import machine, time
 import sys
 machine.freq(240_000_000)
 """
-MicroHydra BASIC Interpreter
+MicroHydra BASIC Interface
 Version: 1.0
 
 Implementation of BASIC & REPL (Read-Eval-Print Loop).
@@ -125,21 +125,6 @@ def scr_show():
         )
     # write framebuffer to display
     tft.show()
-
-# Used for Peeking Stdout
-
-class OutputBuffer:
-    def __init__(self):
-        self.content = []
-
-    def write(self, string):
-        self.content.append(string)
-
-    def getvalue(self):
-        return ''.join(self.content)
-    
-    def clear(self):
-        self.content = []
 
 # Custom print function that writes to the buffer
 def custom_print(*args, **kwargs):
