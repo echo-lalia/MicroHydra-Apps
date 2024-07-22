@@ -128,8 +128,15 @@ def scr_show():
 
 # Custom print function that writes to the buffer
 def custom_print(*args, **kwargs):
-    scr_feed(' '.join(map(str, args)) + kwargs.get('end', ''))
-    scr_show()
+    str_out = (' '.join(map(str, args)) + kwargs.get('end', '')).split('\n')
+    for i in str_out:
+        while len(i)>30:
+            scr_feed(i[:30])
+            scr_show()
+            i = i[30:]
+        
+        scr_feed(i)
+        scr_show()
 
 # Replace the built-in print function with the custom one
 print = custom_print
