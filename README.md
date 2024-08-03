@@ -121,11 +121,9 @@ Pressing space pauses/plays the simulation, ctrl+space moves it one step, backsp
 
 ### IR
 Author: [ndrnmnk](https://github.com/ndrnmnk)
-
-
 Infrared codes sender and reciever(untested) app.
-WARING: It requires popup_options_2d function, which is not implemented yet, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
-<br/>
+
+WARING: It requires popup_options_2d function, which is not currently implemented in MicroHydra, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
 
 -----
 <br />
@@ -135,6 +133,7 @@ WARING: It requires popup_options_2d function, which is not implemented yet, cop
 Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
 
 A Simple and Naive MML (Music Macro Language) player for MicroHydra.
+
 
 -----
 <br />
