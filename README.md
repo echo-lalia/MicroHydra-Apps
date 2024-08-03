@@ -116,15 +116,67 @@ This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedi
 Pressing space pauses/plays the simulation, ctrl+space moves it one step, backspace resets the grid, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
 
 -----
-
 <br/>
 
 
 ### IR
 Author: [ndrnmnk](https://github.com/ndrnmnk)
+Infrared codes sender and reciever(untested) app.
 
-Infrared codes sender and reciever(untested) app. 
+WARING: It requires popup_options_2d function, which is not currently implemented in MicroHydra, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
+
+-----
+<br />
+
+
+### mmlPlay
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A Simple and Naive MML (Music Macro Language) player for MicroHydra.
+
+
+-----
+<br />
+
+
+### KanjiReader
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A text reader that can display Chinese & Japanese text.
+
+-----
+<br />
+
+
+### AppStore
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A Simple AppStore that can download APP from Github repository.
+
+Note that apps will be installed to '/apps' folder. You have to Launch AppStore twice to install an app.
+
+-----
+<br />
+
+
+### wavPlay
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+A Simple and Naive Wave player for MicroHydra.
+
+-----
+<br/>
+
+
+### MHBasic
+Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+
+Nothing pairs better than BASIC and a card computer. 
+
+MHBasic implements a simple BASIC interpreter and REPL, with a nostalgic flavor of the 1980s. 
+
+Note that the documentation is in the comments at the beginning of **MHBasic.py**, and some functionalities still require stability improvements.
 
 -----
 
-<br/>
+<br />
