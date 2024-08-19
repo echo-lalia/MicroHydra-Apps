@@ -1,0 +1,17 @@
+author: echo-lalia
+author_link: "https://github.com/echo-lalia"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.2
+
+short_description: Fetch Wikipedia article summaries
+
+description: |
+  This is a straightforward app which uses the wifi config set in MicroHydra, to connect to a wifi network, and fetch the summary of a Wikipedia article.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer

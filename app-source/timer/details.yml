@@ -1,0 +1,14 @@
+author: foopod
+author_link: https://github.com/foopod
+
+short_description: A kitchen timer app.
+
+description: |
+  A kitchen timer app, by Jono Shields
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer

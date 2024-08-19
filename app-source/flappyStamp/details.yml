@@ -1,0 +1,17 @@
+author: echo-lalia
+author_link: "https://github.com/echo-lalia"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: A simple game for the Cardputer
+
+description: |
+  A simple game concept redesigned for the cardputer. Play as the M5Stamp and dodge pillars of PCBs; try to beat your high score!
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer

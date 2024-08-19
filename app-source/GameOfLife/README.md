@@ -1,0 +1,19 @@
+<!---
+This file is generated from the "details.yml" file. (Any changes here will be overwritten)
+--->
+# GameOfLife
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> App name: **GameOfLife**
+<br/>
+
+This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) on a 60x34 grid (with edge wrapping).  
+Pressing space pauses/plays the simulation, ctrl+space moves it one step, backspace resets the grid, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
+
+
+<br/><br/>
+
+-----
+### Installation:
+Copy the app into your `/apps` folder.
+
+
