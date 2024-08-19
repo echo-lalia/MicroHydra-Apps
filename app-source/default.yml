@@ -4,6 +4,8 @@ license: MIT
 license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
 app_version: 1.0
 
+short_description: A generic app
+
 description: |
   This is an app for MicroHydra.
 

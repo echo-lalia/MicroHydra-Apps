@@ -49,6 +49,23 @@ class AppSource:
                 )
         except FileNotFoundError:
             print(f"WARNING: App {self.name} has no details.yml")
+        
+        # load app name (name of app in MicroHydra, might be different than folder name)
+        self.app_name = self._get_app_name()
+
+    
+    def _get_app_name(self):
+        """Search for module folder or file in app folder"""
+        for dir_entry in os.scandir(os.path.join(APP_SOURCE, self.name)):
+            if dir_entry.is_dir():
+                # if we found another directory inside our main directory,
+                # it must be the module path
+                return dir_entry.name
+            elif dir_entry.name.endswith('.py'):
+                # if this is a .py file, assume it must be a onefile app
+                return dir_entry.name
+                
+    
             
 
     def __repr__(self):
@@ -76,6 +93,7 @@ This file is generated from the "details.yml" file. (Any changes here will be ov
 --->
 # {self.name}
 > Author: **{author_string}** | License: **{license_string}** | Version: **{self.details['app_version']}**  
+> App name: **{self.app_name.removesuffix(".py")}**
 <br/>
 
 {self.details['description']}
