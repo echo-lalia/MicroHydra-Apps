@@ -1,0 +1,14 @@
+author: foopod
+author_link: https://github.com/foopod
+
+short_description: A game by Jono Shields
+
+description: |
+  A cute little endless runner game for the Cardputer, by Jono Shields
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer

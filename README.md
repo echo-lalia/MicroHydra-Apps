@@ -1,3 +1,7 @@
+
+<!---
+This file is generated from automatically. (Any changes here will be overwritten)
+--->
 <p align="center">
     <a href="https://github.com/echo-lalia/Cardputer-MicroHydra" alt="MicroHydra">
         <img src="https://img.shields.io/badge/MicroHydra-purple" /></a>
@@ -10,173 +14,129 @@
 </p>
 
 # MicroHydra Apps!
-This is a companion repository with a collection of apps for MicroHydra. 
+This is a companion repository with a collection of community made apps for MicroHydra. 
 
 <br/>
 
 
 ## Adding your apps to this repository:
-If you've made an app compatible with MicroHydra for the M5Stack Cardputer, you can add it to this repository using the Pull requests feature.
+If you've made an app compatible with MicroHydra, you can add it to this repository by submitting a pull request.
 
+> This repo automatically generates `README.md` files *(and more)* using the scripts under `/tools`.  
+> For this to work, your app needs to be placed into the `app-source` directory, following the same general format as the apps around it.
 
-<br/>
+*Here are step-by-step instructions for how you can add an app:*
+- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository on your own account
 
-Create a personal fork for your additions, and upload your apps to the apps folder. 
+- Add a directory specifically for your app to the `app-source` directory
 
-If your app needs any additional modules (and if this is allowed by the licenses for those modules) then you can upload those as well.   
+- Place your app in that directory by uploading, or by adding your own repo as a [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules)  
+  *(Either the `.py` file, or the entire folder containing your `__init__.py` should be added)*
 
-For compatibility and user-friendliness, if there are any additional app-specific files needed to run your app, I encourage you to place those in a dedicated folder inside the apps folder, with a folder name matching the name of your app, this way, if someone wants to install your app, they can just drag and drop the file and folder onto their device.    
-*(of course, your apps will need to be setup to import the required files from that folder, for this to work.)*
+- Create a `details.yml` file alongside your app. This should contain your name, a description, license, and specify the target device(s)  
+  *(See [`app-source/default.yml`](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/app-source/default.yml), or the other uploaded apps for the format used here)*
 
-This isn't a hard rule though; it might just make more sense to have a different directory for some apps. For example, if you made an app to view pictures stored on the device, you would probably feel it made more sense to keep those files in some kind of "pictures" folder in the root directory, instead of in the app folder. Use your own judgement here. 
-
-<br/>
-
-Once your app is uploaded, you can add a little description of it (and credit yourself!) here in README.md.   
-Make sure to also give any additional instructions that are needed for installing your app, and credit any other authors who's code you're uploading.
-
-
-<br/>
-<br/>
-<br/>
-
-# Apps:
-<br/>
-
-### FancyClock
-Author: echo-lalia | MIT License | Version: 1.1
-
-This is a simple clock app that you can run when you just want something on your cardputer's display. It displays the time, date, and battery level, and bounces around the screen, leaving a colorful, somewhat 3d-looking trail behind it.
-
------
+- Submit a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) to this repo with your changes.
 
 <br/>
 
-### Wikipedia
-Author: echo-lalia | MIT License | Version: 1.2
+For clarity, this is how the `app-source` folder is structured:
 
-This is a straightforward app which uses the wifi config set in MicroHydra, to connect to a wifi network, and fetch the summary of a Wikipedia article. 
+app-source/    
+├── myUniqueAppName/  
+│ &nbsp; &nbsp; &nbsp; ├── myApp.py  
+│ &nbsp; &nbsp; &nbsp; └── details.yml  
+│  
+├── thisNameInRepo/  
+│ &nbsp; &nbsp; &nbsp; ├── thisNameInMicroHydra/  
+│ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; ├── icon.raw  
+│ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; ├── someotherappfile.py  
+│ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; └── \_\_init\_\_.py  
+│ &nbsp; &nbsp; &nbsp; └── details.yml  
+│  
+└── default.yml  
 
------
 
+
+<br/><br/>
+
+
+# Apps by device:  
+
+- [Cardputer](#cardputer)
+
+<br/><br/>
+
+
+## Cardputer
+
+### [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
+> Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A Simple AppStore for downloading from Github
 <br/>
 
-### tinyKnight
-Author: [foopod](https://github.com/foopod)
-
-A cute little endless runner game for the Cardputer, by Jono Shields
-
------
-
+### [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A dice rolling app
 <br/>
 
-### FlappyStamp
-Author: echo-lalia | MIT License | Version: 1.0
-
-A simple game concept redesigned for the cardputer. Play as the M5Stamp and dodge pillars of PCBs; try to beat your high score!
-
------
-
+### [FancyClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/FancyClock)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.1**  
+> A clock app
 <br/>
 
-### timer
-Author: [foopod](https://github.com/foopod)
-
-A kitchen timer app, by Jono Shields
-
------
-
+### [flappyStamp](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/flappyStamp)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A simple game for the Cardputer
 <br/>
 
-### chaosDice
-Author: echo-lalia | MIT License | Version: 1.0
-
-This dice app lets you roll a digital die (2,4,6,8,10,12,20, or 100 sides).   
-The app uses the built in ADC's to generate a long random seed (which is displayed as an animation when you roll) and uses some simple math to convert it into a true random number within your chosen die range. Results have been tested casually (500000 rolls visualized in a histogram, for each die type) and the rolls appear to be pretty uniform in distribution. 
-
------
-
+### [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> Conway's Game of Life
 <br/>
 
-### Clock_LE
-Author: echo-lalia | MIT License | Version: 1.0
-
-This is another simple clock app. This time, the app has been specifically designed to use as little power as possible.   
-The app runs at a cpu frequency of 40mhz (rather than the official top freq of 240mhz), gently lowers to a really low display brightness when no keys are pressed, and puts the device into deep sleep mode after some time (and can be woken up with G0)
-
------
-
+### [InfraRed](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/InfraRed)  
+> Author: **[ndrnmnk](https://github.com/ndrnmnk)** | License: **?** | Version: **1.0**  
+> Infrared codes app.
 <br/>
 
-
-### GameOfLife
-Author: echo-lalia | MIT License | Version: 1.0
-
-This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) on a 60x34 grid (with edge wrapping).   
-Pressing space pauses/plays the simulation, ctrl+space moves it one step, backspace resets the grid, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
-
------
+### [KanjiReader](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/KanjiReader)  
+> Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A reader that can kanji.
 <br/>
 
-
-### IR
-Author: [ndrnmnk](https://github.com/ndrnmnk)
-Infrared codes sender and reciever(untested) app.
-
-WARING: It requires popup_options_2d function, which is not currently implemented in MicroHydra, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
-
------
-<br />
-
-
-### mmlPlay
-Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
-
-A Simple and Naive MML (Music Macro Language) player for MicroHydra.
-
-
------
-<br />
-
-
-### KanjiReader
-Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
-
-A text reader that can display Chinese & Japanese text.
-
------
-<br />
-
-
-### AppStore
-Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
-
-A Simple AppStore that can download APP from Github repository.
-
-Note that apps will be installed to '/apps' folder. You have to Launch AppStore twice to install an app.
-
------
-<br />
-
-
-### wavPlay
-Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
-
-A Simple and Naive Wave player for MicroHydra.
-
------
+### [LowPowerClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/LowPowerClock)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> Another simple clock app.
 <br/>
 
+### [MHBasic](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MHBasic)  
+> Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A BASIC interpreter and REPL
+<br/>
 
-### MHBasic
-Author: [RealClearwave](https://github.com/RealClearwave) | MIT License | Version: 1.0
+### [mmlPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mmlPlay)  
+> Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> Music Macro Language player
+<br/>
 
-Nothing pairs better than BASIC and a card computer. 
+### [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
+> Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
+> A kitchen timer app.
+<br/>
 
-MHBasic implements a simple BASIC interpreter and REPL, with a nostalgic flavor of the 1980s. 
+### [tinyknight](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/tinyknight)  
+> Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
+> A game by Jono Shields
+<br/>
 
-Note that the documentation is in the comments at the beginning of **MHBasic.py**, and some functionalities still require stability improvements.
+### [wavPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/wavPlay)  
+> Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
+> A Wave player.
+<br/>
 
------
+### [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
+> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.2**  
+> Fetch Wikipedia article summaries
+<br/>
 
-<br />

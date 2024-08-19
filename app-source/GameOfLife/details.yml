@@ -1,0 +1,15 @@
+author: echo-lalia
+author_link: "https://github.com/echo-lalia"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+
+short_description: Conway's Game of Life
+
+description: |
+  This is a colorful implementaiton of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) on a 60x34 grid (with edge wrapping).  
+  Pressing space pauses/plays the simulation, ctrl+space moves it one step, backspace resets the grid, G0 generates a random 'soup', the function keys add some arbitrary pre-defined object, and all other keys simply write the key as text to the grid.
+
+devices:
+- Cardputer
