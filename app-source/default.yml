@@ -1,0 +1,15 @@
+author: someone
+author_link: ""
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+description: |
+  This is an app for MicroHydra.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer
