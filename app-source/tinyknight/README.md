@@ -1,8 +1,9 @@
 <!---
 This file is generated from the "details.yml" file. (Any changes here will be overwritten)
 --->
-# tinyknight
-> Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
+# <img src="../../images\icons\tinyknight.png" width="16"> tinyknight
+> ### <img src="https://github.com/foopod.png?size=26" width="13"> **[foopod](https://github.com/foopod)**  
+> Version: **1.0** | License: **?**  
 > App name: **tinyknight**
 <br/>
 
