@@ -1,5 +1,6 @@
 import yaml
 import os
+from PIL import Image
 
 
 
@@ -71,6 +72,41 @@ class AppSource:
 
         self.author_string = self._make_author_string()
         self.license_string = self._make_license_string()
+
+        self.icon_path = self._get_app_icon()
+
+
+
+    def _get_app_icon(self):
+        """
+        Look for an app icon for this app. Store it in images/icons.
+        Otherwise use default icon.
+        """
+        self_path = os.path.join(APP_SOURCE, self.name, self.app_name)
+
+        # check for app icon:
+        if os.path.isdir(self_path):
+            for dir_entry in os.scandir(self_path):
+                if dir_entry.name == "icon.raw":
+
+                    # Extract this raw image to a transparent PNG for display.
+                    with open(dir_entry, 'rb') as raw_icon:
+                        img = Image.frombytes('1', (32,32), raw_icon.read())
+
+                    palette = ((8, 0, 25, 0), (255, 243, 181, 255))
+                    new_img = img.convert("RGBA")
+
+                    for x_idx in range(32):
+                        for y_idx in range(32):
+                            src_val = 1 if img.getpixel((x_idx, y_idx)) else 0
+                            new_img.putpixel((x_idx, y_idx), palette[src_val])
+
+                    img_path = os.path.join("images", "icons", f"{self.name}.png")
+                    new_img.save(img_path)
+                    return img_path
+
+        return os.path.join("images", "default_icon.png")
+
 
 
     def _get_app_url(self):
@@ -185,7 +221,7 @@ This file is generated from automatically. (Any changes here will be overwritten
         for app in app_sources:
             if device in app.details['devices']:
                 readme_text += f"""\
-### [{app.name}]({app.url})  
+### <img src="{app.icon_path}" width="14"> [{app.name}]({app.url})  
 > Author: **{app.author_string}** | License: **{app.license_string}** | Version: **{app.details['app_version']}**  
 > {app.details['short_description']}
 <br/>
