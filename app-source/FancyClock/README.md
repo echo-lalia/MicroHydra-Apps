@@ -1,8 +1,9 @@
 <!---
 This file is generated from the "details.yml" file. (Any changes here will be overwritten)
 --->
-# FancyClock
-> Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.1**  
+# <img src="../../images\default_icon.png" width="16"> FancyClock
+> ### <img src="https://github.com/echo-lalia.png?size=26" width="13"> **[echo-lalia](https://github.com/echo-lalia)**  
+> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > App name: **FancyClock**
 <br/>
 

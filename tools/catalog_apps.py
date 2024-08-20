@@ -77,19 +77,10 @@ class AppSource:
         self.app_name = self._get_app_name()
 
         self.author_string = self._make_author_string()
-        self.author_icon_string = self._make_author_icon()
 
         self.license_string = self._make_license_string()
 
         self.icon_path = self._get_app_icon()
-
-
-    def _make_author_icon(self):
-        if self.details['author_link']:
-            # github avatar can be found by adding '.png' to a profile link.
-            # icon will display at size "10", but using image size "20" looks better on highres displays.
-            return f'<img src="{self.details["author_link"]}.png?size=20" width="10">'
-        return ""
 
 
     def _get_app_icon(self):
@@ -170,13 +161,24 @@ class AppSource:
         Generate README.md file for this app
         """
 
+        # get an author icon (if we have the link)
+        if self.details['author_link']:
+            author_icon_string = f'<img src="{self.details["author_link"]}.png?size=26" width="13">'
+        else:
+            author_icon_string = ""
+
+        # make a string to fetch the app icon.
+        # we have to go 2 levels back before we can reach the images folder
+        app_icon_string = f"../../{self.icon_path}"
+    
         # assemble this app's README.md file
         readme = f"""\
 <!---
 This file is generated from the "details.yml" file. (Any changes here will be overwritten)
 --->
-# {self.name}
-> Author: **{self.author_string}** | License: **{self.license_string}** | Version: **{self.details['app_version']}**  
+# <img src="{app_icon_string}" width="16"> {self.name}
+> ### {author_icon_string} **{self.author_string}**  
+> Version: **{self.details['app_version']}** | License: **{self.license_string}**  
 > App name: **{self.app_name.removesuffix(".py")}**
 <br/>
 
@@ -240,9 +242,19 @@ This file is generated from automatically. (Any changes here will be overwritten
 """
         for app in app_sources:
             if device in app.details['devices']:
+
+                # add author avatar to app listing
+                if app.details['author_link']:
+                    # github avatar can be found by adding '.png' to a profile link.
+                    # icon will display at size "10", but using image size "20" looks better on highres displays.
+                    author_icon_str = f'<img src="{app.details["author_link"]}.png?size=20" width="10">'
+                else:
+                    author_icon_str = ""
+
+                # construct app listing
                 readme_text += f"""\
 ### <img src="{app.icon_path}" width="14"> [{app.name}]({app.url})  
-> {app.author_icon_string} **{app.author_string}**  
+> {author_icon_str} **{app.author_string}**  
 > Version: **{app.details['app_version']}** | License: **{app.license_string}**  
 > {app.details['short_description']}
 <br/>

@@ -1,8 +1,9 @@
 <!---
 This file is generated from the "details.yml" file. (Any changes here will be overwritten)
 --->
-# timer
-> Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
+# <img src="../../images\default_icon.png" width="16"> timer
+> ### <img src="https://github.com/foopod.png?size=26" width="13"> **[foopod](https://github.com/foopod)**  
+> Version: **1.0** | License: **?**  
 > App name: **timer**
 <br/>
 
