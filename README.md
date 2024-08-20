@@ -70,72 +70,72 @@ app-source/
 
 ## Cardputer
 
-### [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
+### <img src="images\default_icon.png" width="14"> [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > A Simple AppStore for downloading from Github
 <br/>
 
-### [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
+### <img src="images\default_icon.png" width="14"> [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > A dice rolling app
 <br/>
 
-### [FancyClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/FancyClock)  
+### <img src="images\default_icon.png" width="14"> [FancyClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/FancyClock)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.1**  
 > A clock app
 <br/>
 
-### [flappyStamp](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/flappyStamp)  
+### <img src="images\default_icon.png" width="14"> [flappyStamp](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/flappyStamp)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > A simple game for the Cardputer
 <br/>
 
-### [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
+### <img src="images\icons\GameOfLife.png" width="14"> [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > Conway's Game of Life
 <br/>
 
-### [InfraRed](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/InfraRed)  
+### <img src="images\default_icon.png" width="14"> [InfraRed](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/InfraRed)  
 > Author: **[ndrnmnk](https://github.com/ndrnmnk)** | License: **?** | Version: **1.0**  
 > Infrared codes app.
 <br/>
 
-### [KanjiReader](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/KanjiReader)  
+### <img src="images\default_icon.png" width="14"> [KanjiReader](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/KanjiReader)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
-> A reader that can kanji.
+> A reader that can display kanji.
 <br/>
 
-### [LowPowerClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/LowPowerClock)  
+### <img src="images\default_icon.png" width="14"> [LowPowerClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/LowPowerClock)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > Another simple clock app.
 <br/>
 
-### [MHBasic](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MHBasic)  
+### <img src="images\default_icon.png" width="14"> [MHBasic](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MHBasic)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > A BASIC interpreter and REPL
 <br/>
 
-### [mmlPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mmlPlay)  
+### <img src="images\default_icon.png" width="14"> [mmlPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mmlPlay)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > Music Macro Language player
 <br/>
 
-### [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
+### <img src="images\default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
 > Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
 > A kitchen timer app.
 <br/>
 
-### [tinyknight](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/tinyknight)  
+### <img src="images\icons\tinyknight.png" width="14"> [tinyknight](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/tinyknight)  
 > Author: **[foopod](https://github.com/foopod)** | License: **?** | Version: **1.0**  
 > A game by Jono Shields
 <br/>
 
-### [wavPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/wavPlay)  
+### <img src="images\default_icon.png" width="14"> [wavPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/wavPlay)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  
 > A Wave player.
 <br/>
 
-### [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
+### <img src="images\default_icon.png" width="14"> [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
 > Author: **[echo-lalia](https://github.com/echo-lalia)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.2**  
 > Fetch Wikipedia article summaries
 <br/>
