@@ -77,10 +77,19 @@ class AppSource:
         self.app_name = self._get_app_name()
 
         self.author_string = self._make_author_string()
+        self.author_icon_string = self._make_author_icon()
+
         self.license_string = self._make_license_string()
 
         self.icon_path = self._get_app_icon()
 
+
+    def _make_author_icon(self):
+        if self.details['author_link']:
+            # github avatar can be found by adding '.png' to a profile link.
+            # icon will display at size "10", but using image size "20" looks better on highres displays.
+            return f'<img src="{self.details["author_link"]}.png?size=20" width="10">'
+        return ""
 
 
     def _get_app_icon(self):
@@ -233,7 +242,8 @@ This file is generated from automatically. (Any changes here will be overwritten
             if device in app.details['devices']:
                 readme_text += f"""\
 ### <img src="{app.icon_path}" width="14"> [{app.name}]({app.url})  
-> Author: **{app.author_string}** | License: **{app.license_string}** | Version: **{app.details['app_version']}**  
+> {app.author_icon_string} **{app.author_string}**  
+> Version: **{app.details['app_version']}** | License: **{app.license_string}**  
 > {app.details['short_description']}
 <br/>
 
