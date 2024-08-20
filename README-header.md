@@ -38,17 +38,17 @@ If you've made an app compatible with MicroHydra, you can add it to this reposit
 
 For clarity, this is how the `app-source` folder is structured:
 
-app-source/    
-├── myUniqueAppName/  
-│ &nbsp; &nbsp; &nbsp; ├── myApp.py  
-│ &nbsp; &nbsp; &nbsp; └── details.yml  
+*app-source/*    
+├── ***myUniqueAppName/***  
+│ &nbsp; &nbsp; &nbsp; ├── **myApp.py**  
+│ &nbsp; &nbsp; &nbsp; └── **details.yml**  
 │  
-├── thisNameInRepo/  
-│ &nbsp; &nbsp; &nbsp; ├── thisNameInMicroHydra/  
+├── ***thisNameInRepo/***  
+│ &nbsp; &nbsp; &nbsp; ├── ***thisNameInMicroHydra/***  
 │ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; ├── icon.raw  
 │ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; ├── someotherappfile.py  
-│ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; └── \_\_init\_\_.py  
-│ &nbsp; &nbsp; &nbsp; └── details.yml  
+│ &nbsp; &nbsp; &nbsp; │ &nbsp; &nbsp; &nbsp; └── \_\_init\_\_.py    
+│ &nbsp; &nbsp; &nbsp; └── **details.yml**  
 │  
 └── default.yml  
 

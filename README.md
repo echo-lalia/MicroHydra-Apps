@@ -63,12 +63,17 @@ app-source/
 
 # Apps by device:  
 
+*This repo currently hosts **14** apps, for **1** unique devices, by **4** different authors.*  
+*Click a link below to jump to the apps for that specific device.*
+
 - [Cardputer](#cardputer)
 
 <br/><br/>
 
 
-## Cardputer
+## Cardputer  
+*There are 14 apps for the Cardputer.*
+
 
 ### <img src="images\default_icon.png" width="14"> [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
 > Author: **[RealClearwave](https://github.com/RealClearwave)** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)** | Version: **1.0**  

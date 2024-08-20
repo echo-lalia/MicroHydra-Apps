@@ -21,12 +21,18 @@ with open(os.path.join(APP_SOURCE, 'default.yml'), 'r', encoding="utf-8") as def
 def main():
     # load each directory in APP_SOURCE as an AppSource object
     app_sources = [AppSource(dir_entry) for dir_entry in os.scandir(APP_SOURCE) if dir_entry.is_dir()]
-    
+
+    # make each app-specific readme
     for app in app_sources:
         app.make_readme()
+
+    # collect stats on apps (for readme file)
+    stats = get_app_stats(app_sources)
+
+    
     
     # update main README file with data from app_sources
-    update_main_readme(app_sources)
+    update_main_readme(app_sources, stats)
 
     # make a small catalog of apps for each device. 
     # (Designed to be easily downloaded/read from the device)
@@ -182,12 +188,12 @@ This file is generated from the "details.yml" file. (Any changes here will be ov
 
 
 
-def update_main_readme(app_sources):
+def update_main_readme(app_sources, stats):
     """
     This function reads all the apps provided in app_sources, and creates a main README.md file
     """
     # collect a set of all device names referenced by apps:
-    all_devices = {device for app in app_sources for device in app.details['devices']}
+    all_devices = stats['all_devices']
     
     readme_text = """
 <!---
@@ -198,9 +204,12 @@ This file is generated from automatically. (Any changes here will be overwritten
     with open("README-header.md", "r", encoding="utf-8") as header_text:
         readme_text += header_text.read()
     
-    readme_text += """
+    readme_text += f"""
 
 # Apps by device:  
+
+*This repo currently hosts **{stats['num_apps']}** apps, for **{len(stats['all_devices'])}** unique devices, by **{stats['num_authors']}** different authors.*  
+*Click a link below to jump to the apps for that specific device.*
 
 """
     # add links for apps by device:
@@ -215,7 +224,9 @@ This file is generated from automatically. (Any changes here will be overwritten
     # add apps by device:
     for device in all_devices:
         readme_text += f"""
-## {device.title()}
+## {device.title()}  
+*There are {stats['device_count'][device]} apps for the {device.title()}.*
+
 
 """
         for app in app_sources:
@@ -230,6 +241,31 @@ This file is generated from automatically. (Any changes here will be overwritten
     
     with open("README.md", 'w', encoding="utf-8") as readme_file:
         readme_file.write(readme_text)
+
+
+
+def get_app_stats(app_sources):
+    """
+    Count number of total apps, 
+    apps by device, and unique authors.
+    """
+    app_stats = {'num_apps':len(app_sources), 'device_count':{}}
+    
+    # collect a set of all device names referenced by apps:
+    all_devices = {device for app in app_sources for device in app.details['devices']}
+    # count apps for each device
+    for device in all_devices:
+        apps_for_device = [app for app in app_sources if device in app.details['devices']]
+        app_stats["device_count"][device] = len(apps_for_device)
+    
+    authors = {app.details['author'].lower() for app in app_sources}
+    app_stats['num_authors'] = len(authors)
+    app_stats['all_devices'] = all_devices
+
+    return app_stats
+
+
+
 
 
 
