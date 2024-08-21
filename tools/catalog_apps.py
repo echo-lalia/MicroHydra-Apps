@@ -227,14 +227,13 @@ This file is generated from automatically. (Any changes here will be overwritten
     for device in all_devices:
         readme_text += f"- [{device.title()}](#{device})\n"
     
-    readme_text += """
-<br/><br/>
-
-"""
 
     # add apps by device:
-    for device in all_devices:
+    for device in sorted(all_devices):
         readme_text += f"""
+
+<br/><br/><br/>        
+
 ## {device.title()}  
 *There are {stats['device_count'][device]} apps for the {device.title()}.*
 
