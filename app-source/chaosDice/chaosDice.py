@@ -11,11 +11,9 @@ reserved_bytearray = bytearray(Device.display_width*Device.display_height*2)
 
 """
 Chaos Dice
-Version: 1.0
-
-
 This is a simple dice app for MicroHydra, which uses the built in ADC to directly generate a true random number, to use as a dice roll.
 """
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CONSTANTS: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 _DISPLAY_HEIGHT = Device.display_height
@@ -73,14 +71,16 @@ sound = Audio(channels=1)
 kb = UserInput()
 
 # choose adc based on target device
-if "TDECK" in Device:    
-    adc0 = machine.ADC(19)
-    adc1 = machine.ADC(20)
-    adc2 = machine.ADC(4)
+if "TDECK" in Device:
+    # Pin 13 is the radio CS Pin. Almost all ADC pins are used on the TDeck, so options are slim.
+    # I dont have LORA so this Pin is unused for me. Your mileage may vary.
+    adc0 = machine.ADC(13)
+    adc1 = machine.ADC(19)
+    adc_batt = machine.ADC(4, atten=3)
 else: # CARDPUTER
     adc0 = machine.ADC(16)
     adc1 = machine.ADC(17)
-    adc2 = machine.ADC(10)
+    adc_batt = machine.ADC(10, atten=3)
 
 #--------------------------------------------------------------------------------------------------
 #-------------------------------------- FUNCTION DEFINITIONS: -------------------------------------
@@ -170,14 +170,26 @@ def ease_out_bounce(x):
         return _n1 * x * x + 0.984375
 
 #-------------------------------------- RNG: -------------------------------------
+
+@micropython.viper
 def adc_chaos_digit():
     """
     this has been tested to produce approximately uniform dist of numbers from 0-9
     Changing the formula just slightly can create major changes to the likelyhood of the resulting digits.
     """
-    return str((
-    ((adc0.read_u16() >> 0x4) & 0xFF) ^ (((adc2.read_u16() >> 0x4) & 0xFF) * ((adc1.read_u16() >> 0x4) & 0xFF))
-    )%10)
+    # read ADC vals, convert to int for Viper
+    # XOR them together to make one semi-random 2-byte int
+    # (the rightmost bit and a few of the leftmost ones rarely change)
+    # Cut the left/right bytes and XOR them together to make one random byte
+    # Divide by 26 to get a range 0-9 (255//26 == 9)
+    # (This is faster than doing `% 10`)
+    val = (int(adc_batt.read_u16()) ^ int(adc0.read_u16()) ^ int(adc1.read_u16()))
+    return str(
+        (val >> 8) ^ (val & 0xFF) // 26
+    )
+
+
+
 
 def get_chaos(digits=_MAX_TOTAL_CHARS):
     result = ''
@@ -467,28 +479,46 @@ class ChaosNumber:
         self.add_len = 0
         while roll_is_pressed():
             self.rand_line()
-            energy_sound(1)
+            energy_sound(random.randint(1,20))
             tft.show()
             time.sleep_ms(10)
         
         sound.stop()
         self.roll()
-    
+
+
+    @staticmethod
+    @micropython.viper
+    def _rand_line(digit_array:ptr8, h_chars:int):
+        # make random byte similar to `adc_chaos_digit`
+        rand_value = int(adc0.read_u16()) ^ int(adc1.read_u16()) ^ int(adc_batt.read_u16())
+        rand_value = (rand_value >> 8) ^ (rand_value & 0xFF)
+        
+        # iterate over digit array, XORing rand value to it
+        idx = 0
+        while idx < h_chars:
+            r_val_shft = idx % 3
+            digit_array[idx] = (digit_array[idx] + (rand_value >> r_val_shft)) % 10
+            idx += 1
+        
+
     def rand_line(self):
+        """Further randomize one random line."""
         # instead of adding to the number, modify it one line at a time
         line_start_idx = self.add_len*_MAX_H_CHARS
         line_end_idx = line_start_idx + _MAX_H_CHARS
         current_line = self.number[line_start_idx:line_end_idx]
-        line_digits = [int(x) for x in current_line]
+        line_digits = bytearray([int(x) for x in current_line])
         
-        current_line = ''
-        for idx, digit in enumerate(line_digits):
-            current_line = current_line + str((digit + int(adc_chaos_digit())) % 10)
-        
-        self.number = self.number[:line_start_idx] + current_line + self.number[line_end_idx:]
+        self._rand_line(line_digits, _MAX_H_CHARS)
+
+        self.number = self.number[:line_start_idx] \
+                      + ''.join([str(x) for x in line_digits]) \
+                      + self.number[line_end_idx:]
         
         self.draw_rand_line()
         self.add_len = (self.add_len + 1) % _MAX_V_CHARS
+
     
     def draw_rand_line(self):
         # draw number with newline highlighted
@@ -501,7 +531,7 @@ class ChaosNumber:
                     line,
                     0,
                     0+(idx*_CHAR_HEIGHT),
-                    config.palette[6]
+                    config.palette[7]
                     )
             elif idx == self.add_len - 1:
                 tft.text(
@@ -515,7 +545,7 @@ class ChaosNumber:
                     line,
                     0,
                     0+(idx*_CHAR_HEIGHT),
-                    config.palette[4]
+                    config.palette[3]
                     )
     
     def add_digits(self):
@@ -533,7 +563,7 @@ class ChaosNumber:
         # draw number as animation while adding digits
         lines = split_lines(self.number)
         
-        lines_to_draw = ((self.add_len * 4) // _MAX_H_CHARS) + 2
+        lines_to_draw = ((self.add_len * 4) // _MAX_H_CHARS) + 3
         
         for idx, line in enumerate(lines):
             if idx >= len(lines) - lines_to_draw:
@@ -770,3 +800,4 @@ def main_loop():
 
 # start the main loop
 main_loop()
+
