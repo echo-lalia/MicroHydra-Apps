@@ -1,43 +1,37 @@
-from lib import st7789py, keyboard
-from lib import microhydra as mh
+from lib import display
+from lib.userinput import UserInput
+from lib.hydra import color
 from launcher.icons import battery
 import time
 from font import vga2_16x32 as font
 from font import vga1_8x16 as font2
-from machine import SPI, Pin, PWM, reset, ADC
+from machine import SPI, Pin, PWM, reset
 import machine
 import random
+from lib import battlevel
+from lib.device import Device
 
 max_bright = const(65535)
 min_bright = const(22000)
 bright_peak = const(65535)
 bright_step = const(500)
 
+MAX_X = Device.display_width - 16
+MAX_Y = Device.display_height - 48
+
 # a simple clock program for the cardputer
 # v1.1
 
-tft = st7789py.ST7789(
-    SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
-    135,
-    240,
-    reset=Pin(33, Pin.OUT),
-    cs=Pin(37, Pin.OUT),
-    dc=Pin(34, Pin.OUT),
-    backlight=None, #because we will control that manually
-    rotation=1,
-    color_order=st7789py.BGR
-    )
+tft = display.Display()
 
 
 
 
 
-blight = PWM(Pin(38, Pin.OUT))
+blight = PWM(tft.backlight)
 blight.freq(1000)
 blight.duty_u16(bright_peak)
 
-
-tft.fill_rect(-40,0,280, 135, 0)
 
 months_names = {
     1:'Jan',
@@ -125,13 +119,13 @@ def get_random_colors():
     
     
     #convert to color565
-    ui_color = st7789py.color565(hsv_to_rgb((hue1,sat1,val1)))
-    bg_color = st7789py.color565(hsv_to_rgb((hue2,sat2,val2)))
-    lighter_color = st7789py.color565(hsv_to_rgb((hue2,max(sat2 - 5, 0),val2 + 8)))
-    darker_color = st7789py.color565(hsv_to_rgb((hue2,min(sat2 + 60, 255),max(val2 - 4,0))))
+    ui_color = display.color565(*hsv_to_rgb((hue1,sat1,val1)))
+    bg_color = display.color565(*hsv_to_rgb((hue2,sat2,val2)))
+    lighter_color = display.color565(*hsv_to_rgb((hue2,max(sat2 - 5, 0),val2 + 8)))
+    darker_color = display.color565(*hsv_to_rgb((hue2,min(sat2 + 60, 255),max(val2 - 4,0))))
     
     #get middle hue
-    mid_color = mh.mix_color565(bg_color, ui_color)
+    mid_color = color.mix_color565(bg_color, ui_color)
     
     return ui_color, bg_color, mid_color, lighter_color, darker_color
     
@@ -141,26 +135,11 @@ def read_battery_level(adc):
     """
     read approx battery level on the adc and return as int range 0 (low) to 3 (high)
     """
-    raw_value = adc.read_uv() # vbat has a voltage divider of 1/2
-    
-    # more real-world data is needed to dial in battery level.
-    # the original values were low, so they will be adjusted based on feedback.
-    
-    #originally 525000 (1.05v)
-    if raw_value < 1575000: #3.15v
-        return 0
-    #originally 1050000 (2.1v)
-    if raw_value < 1750000: #3.5v
-        return 1
-    #originally 1575000 (3.15v)
-    if raw_value < 1925000: #3.85v
-        return 2
-    # 2100000 (4.2v)
-    return 3 # 4.2v or higher
+    return batt.read_level()
 
 
 
-kb = keyboard.KeyBoard()
+kb = UserInput()
 
 moving_right = True #horizontal movement
 moving_up = False #vertical movement
@@ -170,7 +149,7 @@ y_pos = 50
 
 #random color
 ui_color, bg_color, mid_color, lighter_color, darker_color = get_random_colors()
-red_color = mh.color565_shiftred(mid_color)
+red_color = color.color565_shiftred(mid_color)
 
 old_minute = 0
 
@@ -178,8 +157,7 @@ prev_pressed_keys = kb.get_pressed_keys()
 current_bright = bright_peak
 
 #init the ADC for the battery
-batt = ADC(10)
-batt.atten(ADC.ATTN_11DB)
+batt = battlevel.Battery()
 
 batt_level = read_battery_level(batt)
 
@@ -230,28 +208,38 @@ while True:
         loop_timer += 1
         
         
-        
+    
     #add main graphics first
+    tft.rect(
+        x_pos,
+        y_pos,
+        time_width + 18, 49,
+        bg_color,
+        fill=True
+        )
     tft.text(
-        font,
         time_string,
         x_pos,
         y_pos,
-        ui_color, bg_color)
+        ui_color,
+        font=font,
+        )
     tft.text(
-        font2,
         ampm,
         time_width + x_pos,16 + y_pos,
-        mid_color, bg_color)
+        mid_color,
+        font=font2,
+        )
     
     #date
     tft.fill_rect(x_pos,y_pos + 32, 4, 16, bg_color)
     tft.text(
-        font2,
         date_string,
         x_pos + 4,
         y_pos + 32,
-        mid_color, bg_color)
+        mid_color,
+        font=font2,
+        )
         
         
         
@@ -259,40 +247,21 @@ while True:
     battfill_x = x_pos + date_width + 4
     battfill_y = y_pos + 32
     batt_x = x_pos + time_width - 8
-    
 
-    
     # battery
-
-    if batt_level == 3:
-        tft.bitmap_icons(battery, battery.FULL, (bg_color,mid_color),batt_x, y_pos + 34)
-    elif batt_level == 2:
-        tft.bitmap_icons(battery, battery.HIGH, (bg_color,mid_color),batt_x, y_pos + 34)
-    elif batt_level == 1:
-        tft.bitmap_icons(battery, battery.LOW, (bg_color,mid_color),batt_x, y_pos + 34)
-    elif batt_level == 0:
-        tft.bitmap_icons(battery, battery.EMPTY, (bg_color,red_color),batt_x, y_pos + 34)
+    tft.bitmap(battery, batt_x, y_pos + 34, palette=(bg_color,red_color), index=batt_level)
         
         
         
     #the spot beside the date and battery
     #we have to fill AROUND the battery to prevent a flashy/glitchy display
-    tft.fill_rect(battfill_x, battfill_y, batfill_total_width , 2, bg_color) #line above
-    tft.fill_rect(battfill_x, battfill_y + 12, batfill_total_width , 4, bg_color) #line below
-    tft.fill_rect(batt_x + 20, battfill_y + 2, 4 , 10, bg_color) #box right
-    tft.fill_rect(battfill_x, battfill_y + 2, batfill_total_width - 24, 10, bg_color) #box left
+    tft.rect(battfill_x, battfill_y, batfill_total_width , 2, bg_color, fill=True) #line above
+    tft.rect(battfill_x, battfill_y + 12, batfill_total_width , 4, bg_color, fill=True) #line below
+    tft.rect(batt_x + 20, battfill_y + 2, 4 , 10, bg_color, fill=True) #box right
+    tft.rect(battfill_x, battfill_y + 2, batfill_total_width - 24, 10, bg_color, fill=True) #box left
     
     
     
-    #cover up the little spot above the am/pm
-    tft.fill_rect(x_pos + time_width, y_pos, 16, 16, bg_color)
-    
-    
-    
-    #add a line to the right to pad the am/pm a little
-    tft.fill_rect(x_pos + time_width + 16, y_pos, 2, 49, bg_color)
-    #and a line to the left to frame the time better
-    tft.fill_rect(x_pos-2, y_pos, 2, 49, bg_color)
     
     
     
@@ -317,14 +286,14 @@ while True:
         y_pos = 1
         moving_up = False
         ui_color, bg_color, mid_color, lighter_color, darker_color = get_random_colors()
-        red_color = mh.color565_shiftred(mid_color)
+        red_color = color.color565_shiftred(mid_color)
         batt_level = read_battery_level(batt)
         
-    elif y_pos >= 87:
-        y_pos = 87
+    elif y_pos >= MAX_Y:
+        y_pos = MAX_Y
         moving_up = True
         ui_color, bg_color, mid_color, lighter_color, darker_color = get_random_colors()
-        red_color = mh.color565_shiftred(mid_color)
+        red_color = color.color565_shiftred(mid_color)
         batt_level = read_battery_level(batt)
         
         
@@ -333,14 +302,14 @@ while True:
         x_pos = 0
         moving_right = True
         ui_color, bg_color, mid_color, lighter_color, darker_color = get_random_colors()
-        red_color = mh.color565_shiftred(mid_color)
+        red_color = color.color565_shiftred(mid_color)
         batt_level = read_battery_level(batt)
         
-    elif x_pos >= 224 - time_width:
-        x_pos = 224 - time_width
+    elif x_pos >= MAX_X - time_width:
+        x_pos = MAX_X - time_width
         moving_right = False
         ui_color, bg_color, mid_color, lighter_color, darker_color = get_random_colors()
-        red_color = mh.color565_shiftred(mid_color)
+        red_color = color.color565_shiftred(mid_color)
         batt_level = read_battery_level(batt)
     
     
@@ -374,7 +343,8 @@ while True:
         time.sleep_ms(1)
     else:
         time.sleep_ms(70)
-
+    
+    tft.show()
 
 
 

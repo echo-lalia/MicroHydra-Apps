@@ -63,13 +63,14 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **14** apps, for **1** unique devices, by **4** different authors.*  
+*This repo currently hosts **14** apps, for **2** unique devices, by **4** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
+- [Tdeck](#tdeck)
 - [Cardputer](#cardputer)
 
-<br/><br/>
 
+<br/><br/><br/>        
 
 ## Cardputer  
 *There are 14 apps for the Cardputer.*
@@ -83,13 +84,13 @@ For clarity, this is how the `app-source` folder is structured:
 
 ### <img src="images\default_icon.png" width="14"> [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A dice rolling app
 <br/>
 
 ### <img src="images\default_icon.png" width="14"> [FancyClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/FancyClock)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **1.2** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A clock app
 <br/>
 
@@ -157,5 +158,25 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
 > Version: **1.2** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > Fetch Wikipedia article summaries
+<br/>
+
+
+
+<br/><br/><br/>        
+
+## Tdeck  
+*There are 2 apps for the Tdeck.*
+
+
+### <img src="images\default_icon.png" width="14"> [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
+> <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
+> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A dice rolling app
+<br/>
+
+### <img src="images\default_icon.png" width="14"> [FancyClock](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/FancyClock)  
+> <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
+> Version: **1.2** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A clock app
 <br/>
 
