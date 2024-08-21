@@ -84,7 +84,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 ### <img src="images\default_icon.png" width="14"> [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **2.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A dice rolling app
 <br/>
 
@@ -170,7 +170,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 ### <img src="images\default_icon.png" width="14"> [chaosDice](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/chaosDice)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **2.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A dice rolling app
 <br/>
 
