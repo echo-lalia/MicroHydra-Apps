@@ -22,6 +22,6 @@ If your wav file will not play or sounds like static, the wav format my not be c
 
 
 ### Future Enhancements:
-Play/pause and volume controls <br>
+Play/pause, volume and other player controls <br>
 Playlist editor <br>
 Web radio <br>
