@@ -21,7 +21,7 @@ File name format needs to be: Artist - Album - Song.wav
 If your wav file will not play or sounds like static, the wav format my not be compatible. If this happens, try converting the Wav file with the default settings from <a href="https://cloudconvert.com/wav-converter">cloudconvert</a>.
 
 
-## Future Enhancements:
+### Future Enhancements:
 Play/pause and volume controls
 Playlist editor
 Web radio.
