@@ -1,0 +1,17 @@
+author: Ben Harrison (Benzamp)
+author_link: "https://github.com/Benzamp"
+license: MIT
+license_link: "https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE"
+app_version: 1.0
+
+short_description: A music player app.
+
+description: |
+  This is a Wav player app for MicroHydra.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder. Upload songs to a 'music' directory on your SD card with the following format: Artist - Album - Song.wav
+
+
+devices:
+- Cardputer
