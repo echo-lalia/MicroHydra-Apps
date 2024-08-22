@@ -63,17 +63,17 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **14** apps, for **2** unique devices, by **4** different authors.*  
+*This repo currently hosts **15** apps, for **2** unique devices, by **5** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
-- [Tdeck](#tdeck)
 - [Cardputer](#cardputer)
+- [Tdeck](#tdeck)
 
 
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 14 apps for the Cardputer.*
+*There are 15 apps for the Cardputer.*
 
 
 ### <img src="images\default_icon.png" width="14"> [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
@@ -134,6 +134,12 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > Music Macro Language player
+<br/>
+
+### <img src="images\default_icon.png" width="14"> [Music](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Music)  
+> <img src="https://github.com/Benzamp.png?size=20" width="10"> **[Ben Harrison (Benzamp)](https://github.com/Benzamp)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A music player app.
 <br/>
 
 ### <img src="images\default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  

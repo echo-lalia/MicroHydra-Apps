@@ -2,26 +2,18 @@
 This file is generated from the "details.yml" file. (Any changes here will be overwritten)
 --->
 # <img src="../../images\default_icon.png" width="16"> Music
-> ### <img src="https://github.com/Benzamp.png?size=26" width="13"> **[Benzamp](https://github.com/Benzamp)**  
+> ### <img src="https://github.com/Benzamp.png?size=26" width="13"> **[Ben Harrison (Benzamp)](https://github.com/Benzamp)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > App name: **Music**
 <br/>
 
-A simple and easy to use Wav player for the Cardputer.
+This is a Wav player app for MicroHydra.
 
 
 <br/><br/>
 
 -----
 ### Installation:
-Copy the app into your `/apps` folder. Create a directory 'music' on sd card and upload songs (Wav format only) to that directory. 
-File name format needs to be: Artist - Album - Song.wav 
-
-### Known issues:
-If your wav file will not play or sounds like static, the wav format my not be compatible. If this happens, try converting the Wav file with the default settings from <a href="https://cloudconvert.com/wav-converter">cloudconvert</a>.
+Copy the app into your `/apps` folder. Upload songs to a 'music' directory on your SD card with the following format: Artist - Album - Song.wav
 
 
-### Future Enhancements:
-Play/pause, volume and other player controls <br>
-Playlist editor <br>
-Web radio <br>
