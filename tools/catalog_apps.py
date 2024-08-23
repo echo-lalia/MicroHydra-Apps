@@ -33,15 +33,15 @@ def main():
 
     # collect stats on apps (for readme file)
     stats = get_app_stats(app_sources)
-
-    
     
     # update main README file with data from app_sources
     update_main_readme(app_sources, stats)
 
-    # make a small catalog of apps for each device. 
-    # (Designed to be easily downloaded/read from the device)
-    make_device_catalogs(app_sources)
+    # before making catalogs, clean old contents
+    try:
+        shutil.rmtree('catalog-output')
+    except FileNotFoundError:
+        pass # directory might not exist
 
     # compile apps into .mpy files
     if os.name == 'nt':
@@ -51,6 +51,10 @@ def main():
     
     # zip apps to output folder for easy download from MicroHydra
     zip_apps(app_sources)
+
+    # make a small catalog of apps for each device. 
+    # (Designed to be easily downloaded/read from the device)
+    make_device_catalogs(app_sources)
 
 
 
@@ -311,7 +315,20 @@ def extract_file_data(dir_entry, path_dir):
 def make_device_catalogs(app_sources):
     # make a small catalog of apps for each device. 
     # (Designed to be easily downloaded/read from the device)
-    pass
+    all_devices = {device for app in app_sources for device in app.details['devices']}
+    
+    
+    for device in all_devices:
+        device_catalog = {'mpy_version':MPY_VERSION}
+
+        apps_for_device = [app for app in app_sources if device in app.details['devices']]
+        for app in apps_for_device:
+            device_catalog[app.name] = f"{app.details['short_description']} - {app.details['author']}"
+
+        with open(os.path.join('catalog-output', f'{device.lower()}.json'), 'w') as catalog_file:
+            catalog_file.write(
+                json.dumps(device_catalog)
+            )
     
 
 def compile_mpy_apps(app_sources):
