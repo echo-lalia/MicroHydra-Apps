@@ -1,0 +1,41 @@
+name: Catalog Apps
+
+on:
+  push:
+    paths:
+      - app-src/*
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  catalog:
+    name: "Run catalog script"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout current changes"
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+  
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install Pillow
+          python3 -m pip install pyyaml
+
+      - name: Run catalog script
+        run: |
+          python3 tools/catalog_apps.py
+
+      - name: commit and push changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add *.md
+          git commit -m "auto-catalog"
+          git push
