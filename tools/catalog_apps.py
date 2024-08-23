@@ -1,7 +1,12 @@
 import yaml
 import os
 from PIL import Image
+import json
+import subprocess
+import shutil
 
+
+MPY_VERSION = "6.3"
 
 
 CWD = os.getcwd()
@@ -36,13 +41,16 @@ def main():
 
     # make a small catalog of apps for each device. 
     # (Designed to be easily downloaded/read from the device)
-    make_device_catalogs()
+    make_device_catalogs(app_sources)
 
     # compile apps into .mpy files
-    compile_mpy_apps()
+    if os.name == 'nt':
+        print("WARNING: can't compile .mpy files on Windows.")
+    else:
+        compile_mpy_apps(app_sources)
     
     # zip apps to output folder for easy download from MicroHydra
-    zip_apps()
+    zip_apps(app_sources)
 
 
 
@@ -288,21 +296,79 @@ def get_app_stats(app_sources):
 
 
 
+def extract_file_data(dir_entry, path_dir):
+    """Recursively extract DirEntry objects and relative paths for each file in directory."""
+    if dir_entry.is_dir():
+        output = []
+        for r_entry in os.scandir(dir_entry):
+            output += extract_file_data(r_entry, f"{path_dir}/{dir_entry.name}")
+        return output
+    else:
+        return [(dir_entry, path_dir)]
+    
 
 
-def make_device_catalogs():
-    # update main README file with data from app_sources
+def make_device_catalogs(app_sources):
+    # make a small catalog of apps for each device. 
+    # (Designed to be easily downloaded/read from the device)
     pass
     
 
-def compile_mpy_apps():
+def compile_mpy_apps(app_sources):
     # compile apps into .mpy files
-    pass
+    for app in app_sources:
+        
+
+        target_path = os.path.join(app.dir_entry, app.app_name)
+        output_path = os.path.join(CWD, 'catalog-output', 'compiled', app.name)
+
+        if os.path.isdir(target_path):
+            app_files = []
+            for dir_entry in os.scandir(target_path):
+                app_files += extract_file_data(dir_entry, app.app_name)
+
+            for dir_entry, relative_path in app_files:
+                # Sometimes a slash appears and destroys os.path.join
+                relative_path = relative_path.removeprefix('/')
+
+                if dir_entry.name.endswith('.py'):
+                    # compile py file to target folder
+                    new_filename = dir_entry.name.removesuffix('.py') + '.mpy'
+
+                    fileoutput = os.path.join(output_path, relative_path, new_filename)
+                    mkdirs = os.path.join(output_path, relative_path)
+                    
+                    os.makedirs(mkdirs, exist_ok=True)
+                    subprocess.run(["./tools/mpy-cross", "-o", fileoutput, dir_entry.path, "-march=xtensawin"])
+
+                else:
+                    # if not a .py file, just copy it over
+                    mkdirs = os.path.join(output_path, relative_path)
+                    os.makedirs(mkdirs, exist_ok=True)
+
+                    fileoutput = os.path.join(output_path, relative_path, dir_entry.name)
+                    shutil.copyfile(dir_entry, fileoutput)
+        
+        elif target_path.endswith('.py'):
+            # if not a directory, target path should be a .py file, and should be compiled.
+            new_filename = app.app_name.removesuffix('.py') + '.mpy'
+            fileoutput = os.path.join(output_path, new_filename)
+
+            os.makedirs(output_path, exist_ok=True)
+            subprocess.run(["./tools/mpy-cross", "-o", fileoutput, target_path, "-march=xtensawin"])
+        
+        shutil.make_archive(output_path, 'zip', output_path)
+        shutil.rmtree(output_path)
 
 
-def zip_apps():
+
+
+def zip_apps(app_sources):
     # zip apps to output folder for easy download from MicroHydra
-    pass
+    for app in app_sources:
+        output_path = os.path.join(CWD, 'catalog-output', 'raw', app.name)
+
+        shutil.make_archive(output_path, 'zip', root_dir=app.dir_entry, base_dir=app.app_name)
 
 
 
