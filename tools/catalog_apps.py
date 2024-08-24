@@ -239,7 +239,7 @@ def update_main_readme(app_sources, stats):
     This function reads all the apps provided in app_sources, and creates a main README.md file
     """
     # collect a set of all device names referenced by apps:
-    all_devices = stats['all_devices']
+    all_devices = sorted(stats['all_devices'])
     
     readme_text = """
 <!---
@@ -264,7 +264,7 @@ This file is generated from automatically. (Any changes here will be overwritten
     
 
     # add apps by device:
-    for device in sorted(all_devices):
+    for device in all_devices:
         readme_text += f"""
 
 <br/><br/><br/>        
