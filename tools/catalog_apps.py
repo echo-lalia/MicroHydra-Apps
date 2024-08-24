@@ -29,7 +29,7 @@ def main():
     app_sources = [AppSource(dir_entry) for dir_entry in os.scandir(APP_SOURCE) if dir_entry.is_dir()]
 
     # sort app_sources so that recently modified apps are first
-    app_sources.sort(key=lambda app: app.mtime)
+    app_sources.sort(key=lambda app: app.mtime, reverse=True)
 
     # make each app-specific readme
     for app in app_sources:
