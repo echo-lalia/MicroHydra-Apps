@@ -4,6 +4,7 @@ from PIL import Image
 import json
 import subprocess
 import shutil
+import datetime
 
 
 MPY_VERSION = "6.3"
@@ -69,7 +70,6 @@ class AppSource:
     def __init__(self, dir_entry):
         self.dir_entry = dir_entry
         self.name = dir_entry.name
-        self.mtime = os.path.getmtime(dir_entry)
 
         self.details = DEFAULT_DETAILS.copy()
 
@@ -98,6 +98,23 @@ class AppSource:
 
         self.icon_path = self._get_app_icon()
 
+        self.mtime = self._get_modified_time()
+
+
+    def _get_modified_time(self):
+        """Ask git for the most recent commit timestamp in this app, convert to epoch."""
+        # Inquire to git about latest commit
+        output = subprocess.check_output(['git', 'log', '-1', r'--format="%ai"', self.dir_entry.path])
+
+        # Convert bytes to str and clean it.
+        output = output.decode().strip().strip('"')
+
+        # convert to datetime
+        dt = datetime.datetime.strptime(output, '%Y-%m-%d %H:%M:%S %z')
+
+        # return epoch
+        return dt.timestamp()
+        
 
 
 
