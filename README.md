@@ -66,8 +66,8 @@ For clarity, this is how the `app-source` folder is structured:
 *This repo currently hosts **15** apps, for **2** unique devices, by **5** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
-- [Cardputer](#cardputer)
 - [Tdeck](#tdeck)
+- [Cardputer](#cardputer)
 
 
 <br/><br/><br/>        
@@ -88,6 +88,18 @@ For clarity, this is how the `app-source` folder is structured:
 > Infrared codes app.
 <br/>
 
+### <img src="images/default_icon.png" width="14"> [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
+> <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A Simple AppStore for downloading from Github
+<br/>
+
+### <img src="images/icons/GameOfLife.png" width="14"> [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
+> <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Conway's Game of Life
+<br/>
+
 ### <img src="images/default_icon.png" width="14"> [MHBasic](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MHBasic)  
 > <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
@@ -98,12 +110,6 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/foopod.png?size=20" width="10"> **[foopod](https://github.com/foopod)**  
 > Version: **1.0** | License: **?**  
 > A game by Jono Shields
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [AppStore](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/AppStore)  
-> <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
-> A Simple AppStore for downloading from Github
 <br/>
 
 ### <img src="images/default_icon.png" width="14"> [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
@@ -118,12 +124,6 @@ For clarity, this is how the `app-source` folder is structured:
 > Music Macro Language player
 <br/>
 
-### <img src="images/icons/GameOfLife.png" width="14"> [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
-> <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
-> Conway's Game of Life
-<br/>
-
 ### <img src="images/default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
 > <img src="https://github.com/foopod.png?size=20" width="10"> **[foopod](https://github.com/foopod)**  
 > Version: **1.0** | License: **?**  
@@ -134,12 +134,6 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A reader that can display kanji.
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [wavPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/wavPlay)  
-> <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
-> A Wave player.
 <br/>
 
 ### <img src="images/default_icon.png" width="14"> [flappyStamp](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/flappyStamp)  
@@ -164,6 +158,12 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/Benzamp.png?size=20" width="10"> **[Ben Harrison (Benzamp)](https://github.com/Benzamp)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A music player app.
+<br/>
+
+### <img src="images/default_icon.png" width="14"> [wavPlay](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/wavPlay)  
+> <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A Wave player.
 <br/>
 
 
