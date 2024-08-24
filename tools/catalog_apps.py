@@ -27,6 +27,9 @@ def main():
     # load each directory in APP_SOURCE as an AppSource object
     app_sources = [AppSource(dir_entry) for dir_entry in os.scandir(APP_SOURCE) if dir_entry.is_dir()]
 
+    # sort app_sources so that recently modified apps are first
+    app_sources.sort(key=lambda app: app.mtime)
+
     # make each app-specific readme
     for app in app_sources:
         app.make_readme()
@@ -66,6 +69,7 @@ class AppSource:
     def __init__(self, dir_entry):
         self.dir_entry = dir_entry
         self.name = dir_entry.name
+        self.mtime = os.path.getmtime(dir_entry)
 
         self.details = DEFAULT_DETAILS.copy()
 
@@ -93,6 +97,8 @@ class AppSource:
         self.license_string = self._make_license_string()
 
         self.icon_path = self._get_app_icon()
+
+
 
 
     def _get_app_icon(self):
