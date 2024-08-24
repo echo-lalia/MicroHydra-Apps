@@ -2,6 +2,7 @@ from lib.display import Display
 from lib.hydra import color
 from lib.userinput import UserInput
 import machine, time, framebuf, math, random
+from lib.device import Device
 
 machine.freq(240_000_000)
 
@@ -11,9 +12,9 @@ Version: 1.0
 """
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CONSTANTS: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-_DISPLAY_HEIGHT = const(135)
-_DISPLAY_WIDTH = const(240)
-_DISPLAY_WIDTH_HALF = const(_DISPLAY_WIDTH // 2)
+_DISPLAY_HEIGHT = Device.display_height
+_DISPLAY_WIDTH = Device.display_width
+_DISPLAY_WIDTH_HALF = (_DISPLAY_WIDTH // 2)
 
 _CHAR_WIDTH = const(8)
 _CHAR_WIDTH_HALF = const(_CHAR_WIDTH // 2)
@@ -22,15 +23,15 @@ _CHAR_WIDTH_HALF = const(_CHAR_WIDTH // 2)
 
 # pixeldisplay/cells:
 _PX_SIZE = const(4)
-_PX_DISPLAY_WIDTH = const(_DISPLAY_WIDTH // _PX_SIZE)
-_PX_DISPLAY_HEIGHT = const((_DISPLAY_HEIGHT+1) // _PX_SIZE)
+_PX_DISPLAY_WIDTH = (_DISPLAY_WIDTH // _PX_SIZE)
+_PX_DISPLAY_HEIGHT = ((_DISPLAY_HEIGHT+1) // _PX_SIZE)
 
 _INNER_PX_SIZE = const(_PX_SIZE-2)
 _PX_SIZE_HALF = const(_PX_SIZE//2)
 
 _PX_CHAR_SIZE = const(8)
-_PX_MAX_CHAR_X = const(_PX_DISPLAY_WIDTH-_PX_CHAR_SIZE)
-_PX_MAX_CHAR_Y = const(_PX_DISPLAY_HEIGHT-_PX_CHAR_SIZE)
+_PX_MAX_CHAR_X = (_PX_DISPLAY_WIDTH-_PX_CHAR_SIZE)
+_PX_MAX_CHAR_Y = (_PX_DISPLAY_HEIGHT-_PX_CHAR_SIZE)
 
 _GLIDER = const(
 """
@@ -318,6 +319,8 @@ class PixelDisplay:
         display = self.display
         height = int(self.height)
         width = int(self.width)
+        px_display_width = int(_PX_DISPLAY_WIDTH)
+        px_display_height = int(_PX_DISPLAY_HEIGHT)
         
         # iterate over each cell
         for px_y in range(height):
@@ -341,8 +344,8 @@ class PixelDisplay:
                     iy = y + (i // 3)
                     
                     neighbors += int(self.buf.pixel(
-                        ix % _PX_DISPLAY_WIDTH,
-                        iy % _PX_DISPLAY_HEIGHT,
+                        ix % px_display_width,
+                        iy % px_display_height,
                         ))
                 
                 # draw ourselves!
@@ -366,6 +369,8 @@ class PixelDisplay:
         height = int(self.height)
         width = int(self.width)
         new_frame = self.buf
+        px_display_width = int(_PX_DISPLAY_WIDTH)
+        px_display_height = int(_PX_DISPLAY_HEIGHT)
         
         # iterate over each cell
         for px_y in range(height):
@@ -389,8 +394,8 @@ class PixelDisplay:
                     
                     
                     neighbors += int(previous_frame.pixel(
-                        ix % _PX_DISPLAY_WIDTH,
-                        iy % _PX_DISPLAY_HEIGHT,
+                        ix % px_display_width,
+                        iy % px_display_height,
                         ))
                     
                 color_idx = neighbors - 1
@@ -574,7 +579,7 @@ def main_loop():
                     _GUN, PIXEL_DISPLAY.buf, x, y,
                     random.randint(0,1), random.randint(0,1))
             
-            elif key == "GO":
+            elif key == "G0":
                 random_soup(PIXEL_DISPLAY.buf)
                 
             elif key == "SPC" and "CTL" in KB.key_state:
