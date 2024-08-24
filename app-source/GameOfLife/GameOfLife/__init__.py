@@ -1,4 +1,6 @@
-from lib import st7789fbuf, mhconfig, keyboard
+from lib.display import Display
+from lib.hydra import color
+from lib.userinput import UserInput
 import machine, time, framebuf, math, random
 
 machine.freq(240_000_000)
@@ -15,6 +17,7 @@ _DISPLAY_WIDTH_HALF = const(_DISPLAY_WIDTH // 2)
 
 _CHAR_WIDTH = const(8)
 _CHAR_WIDTH_HALF = const(_CHAR_WIDTH // 2)
+
 
 
 # pixeldisplay/cells:
@@ -165,24 +168,13 @@ OO.O..O.O
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GLOBAL OBJECTS: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # init object for accessing display
-DISPLAY = st7789fbuf.ST7789(
-    machine.SPI(
-        1,baudrate=40000000,sck=machine.Pin(36),mosi=machine.Pin(35),miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-    )
+DISPLAY = Display()
 
 # # object for accessing microhydra config (Delete if unneeded)
 # CONFIG = mhconfig.Config()
 
 # object for reading keypresses
-KB = keyboard.KeyBoard()
+KB = UserInput()
 
 
 PIXEL_DISPLAY = None # defined below
@@ -207,14 +199,14 @@ def mix(val2, val1, fac=0.5):
 
 @micropython.native
 def hsv_to_color565(h,s,v):
-    r,g,b = mhconfig.hsv_to_rgb(h, s, v)
+    r,g,b = color.hsv_to_rgb(h, s, v)
     r *= 31; g *= 63; b *= 31
     
     r = math.floor(r)
     g = math.floor(g)
     b = math.floor(b)
     
-    return mhconfig.combine_color565(r,g,b)
+    return color.combine_color565(r,g,b)
 
 @micropython.native
 def gen_new_colors():
