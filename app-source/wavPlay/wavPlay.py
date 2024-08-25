@@ -1,4 +1,6 @@
-from lib import st7789fbuf, mhconfig, keyboard
+from lib.display import Display
+from lib.hydra.config import Config
+from lib.userinput import UserInput
 import machine, time
 machine.freq(240000000)
 
@@ -33,21 +35,10 @@ _SD_PIN = const(42)
 i2s = None
 
 # init object for accessing display
-tft = st7789fbuf.ST7789(
-    machine.SPI(
-        1, baudrate=40000000, sck=machine.Pin(36), mosi=machine.Pin(35), miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-)
+tft = Display()
 
 # object for accessing microhydra config (Delete if unneeded)
-config = mhconfig.Config()
+config = Config()
 
 def tft_disp(current_text):
     tft.fill(config['bg_color'])
@@ -63,7 +54,7 @@ def tft_disp(current_text):
 tft_disp("Loading...")
 
 # object for reading keypresses
-kb = keyboard.KeyBoard()
+kb = UserInput()
 
 # Function to read WAV file header and get sample rate
 def read_wav_header(file):
@@ -75,7 +66,10 @@ def read_wav_header(file):
     
     # Extract the sample rate from the header
     sample_rate = int.from_bytes(fmt[12:16], 'little')
-    return sample_rate*2
+    # Read the number of channels from the header
+    num_channels = int.from_bytes(fmt[10:12], 'little')
+
+    return sample_rate*num_channels
 
 # Set up I2S for audio output
 def setup_i2s(sample_rate):
@@ -100,7 +94,6 @@ def main_loop():
 
 
     #Read MML file
-    kb = keyboard.KeyBoard()
     keybuf = []
     while not 'ENT' in keybuf:
         tmp = kb.get_new_keys()
