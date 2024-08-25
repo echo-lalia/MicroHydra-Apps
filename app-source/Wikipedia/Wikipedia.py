@@ -1,6 +1,9 @@
 import requests, network, time, math, json
 from machine import SPI, Pin, PWM, freq, reset
-from lib import st7789py, keyboard, mhconfig
+from lib.display import Display
+from lib.userinput import UserInput
+from lib.hydra.config import Config
+from lib.device import Device
 from font import vga1_8x16 as font
 import neopixel
 
@@ -22,24 +25,16 @@ def dotted_hline(tft, y_position, color):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~ global objects/vars ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 freq(240000000)
-ledPin = Pin(21)
-led = neopixel.NeoPixel(ledPin, 1, bpp=3)
 
-tft = st7789py.ST7789(
-    SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
-    135,
-    240,
-    reset=Pin(33, Pin.OUT),
-    cs=Pin(37, Pin.OUT),
-    dc=Pin(34, Pin.OUT),
-    backlight=Pin(38, Pin.OUT),
-    rotation=1,
-    color_order=st7789py.BGR
-    )
+if "CARDPUTER" in Device:
+    ledPin = Pin(21)
+    led = neopixel.NeoPixel(ledPin, 1, bpp=3)
 
-config = mhconfig.Config()
+tft = Display()
 
-kb = keyboard.KeyBoard()
+config = Config()
+
+kb = UserInput()
 
 nic = network.WLAN(network.STA_IF)
 
@@ -49,7 +44,8 @@ nic = network.WLAN(network.STA_IF)
 
 def user_query():
     tft.fill(config['bg_color'])
-    tft.text(font, "Enter query:", 72, 4, config['ui_color'], config['bg_color'])
+    tft.text("Enter query:", 72, 4, config['ui_color'], font=font)
+    tft.show()
     
     current_value = ''
     
@@ -80,15 +76,15 @@ def user_query():
         
         # graphics!
         if redraw:
-            tft.fill_rect(12, 59, 216, 64, config['bg_color'])
+            tft.rect(12, 59, 216, 64, config['bg_color'], fill=True)
             if len(current_value) <= 30:
-                tft.text(font, current_value, 120 - (len(current_value) * 4), 75, config['ui_color'], config['bg_color'])
+                tft.text(current_value, 120 - (len(current_value) * 4), 75, config['ui_color'], font=font)
             else:
-                tft.text(font, current_value[0:30], 24, 59, config['ui_color'], config['bg_color'])
-                tft.text(font, current_value[30:], 120 - (len(current_value[12:]) * 4), 91, config['ui_color'], config['bg_color'])
+                tft.text(current_value[0:30], 24, 59, config['ui_color'], font=font)
+                tft.text(current_value[30:], 120 - (len(current_value[12:]) * 4), 91, config['ui_color'], font=font)
 
             
-            
+            tft.show()
             redraw = False
 
         prev_pressed_keys = pressed_keys
@@ -102,17 +98,18 @@ def fetch_article():
     if url == "https://en.wikipedia.org/api/rest_v1/page/summary/":
         url = "https://en.wikipedia.org/api/rest_v1/page/random/summary/"
     
-    
-    led.fill((10,0,0)); led.write() # set led
+    if "CARDPUTER" in Device:
+        led.fill((10,0,0)); led.write() # set led
     
     tft.fill(config['bg_color'])
-    tft.text(font, 'Connecting to WIFI...', 36, 30, config['ui_color'], config['bg_color'])
-    
+    tft.text('Connecting to WIFI...', 36, 30, config['ui_color'], font=font)
+    tft.show()
     
     if not nic.active(): # turn on wifi if it isn't already
         nic.active(True)
     
-    led.fill((10,10,0)); led.write() # set led
+    if "CARDPUTER" in Device:
+        led.fill((10,10,0)); led.write() # set led
     
     if not nic.isconnected(): # try connecting
         try:
@@ -125,11 +122,13 @@ def fetch_article():
     while not nic.isconnected():
         time.sleep_ms(10)
     
-    led.fill((0,10,10)); led.write() # set led
+    if "CARDPUTER" in Device:
+        led.fill((0,10,10)); led.write() # set led
     
     print("Connected!")
     tft.fill(config['bg_color'])
-    tft.text(font, 'Connected!', 80, 30, config['ui_color'], config['bg_color'])
+    tft.text('Connected!', 80, 30, config['ui_color'], font=font)
+    tft.show()
     
     response = requests.get(url)
 
@@ -140,8 +139,8 @@ def fetch_article():
             redirect_name = response.headers['location']
             url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + redirect_name
             tft.fill(config['bg_color'])
-            tft.text(font, 'Redirecting to:', 60, 30, config['ui_color'], config['bg_color'])
-            tft.text(font, '"' + redirect_name + '"', 112 - (len(redirect_name) * 4), 60, config['ui_color'], config['bg_color'])
+            tft.text('Redirecting to:', 60, 30, config['ui_color'], font=font)
+            tft.text('"' + redirect_name + '"', 112 - (len(redirect_name) * 4), 60, config['ui_color'], font=font)
             time.sleep_ms(10)
             response = requests.get(url)
             print(response.status_code)
@@ -149,17 +148,19 @@ def fetch_article():
             #alternate format for redirect
             url = response.headers['location']
             tft.fill(config['bg_color'])
-            tft.text(font, 'Redirecting...:', 60, 30, config['ui_color'], config['bg_color'])
+            tft.text('Redirecting...:', 60, 30, config['ui_color'], font=font)
             time.sleep_ms(10)
             response = requests.get(url)
         else: #404 or another error
             tft.fill(config['bg_color'])
-            tft.text(font, 'No results.', 76, 50, config['ui_color'], config['bg_color'])
+            tft.text('No results.', 76, 50, config['ui_color'], font=font)
             time.sleep(2)
             url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + user_query()
             response = requests.get(url)
         
-    led.fill((0,40,0)); led.write() # set led    
+    
+    if "CARDPUTER" in Device:
+        led.fill((0,40,0)); led.write() # set led    
     
     result = response.content
     nic.active(False) #turn off wifi
@@ -183,8 +184,10 @@ def fetch_article():
     #page lines
     for i in range(0,7):
         dotted_hline(tft, 16 + (17*i), config.palette[3])
+    tft.show()
     
-    led.fill((0,0,0)); led.write() # set led  
+    if "CARDPUTER" in Device:
+        led.fill((0,0,0)); led.write() # set led  
     
     return lines
     
@@ -235,8 +238,8 @@ while True:
         scrollbar_position = math.floor((135 - scrollbar_height) * (screen_index / max_screen_index)) + 4
         if scrollbar_position > 135 - scrollbar_height:
             scrollbar_position = 135 - scrollbar_height
-        tft.fill_rect(238, 0, 2, 135, config['bg_color'])        
-        tft.fill_rect(238, scrollbar_position, 2, scrollbar_height, config.palette[3])
+        tft.rect(238, 0, 2, 135, config['bg_color'], fill=True)        
+        tft.rect(238, scrollbar_position, 2, scrollbar_height, config.palette[3], fill=True)
         #print(scrollbar_height, scrollbar_position)
         
         
@@ -245,16 +248,17 @@ while True:
         if '.' in pressed_keys: #update bottom of screen first
             for idx in reversed(range(0,8)):
                 line_index = screen_index + idx
-                tft.fill_rect(4,idx*17,232,16, config['bg_color'])
+                tft.rect(4,idx*17,232,16, config['bg_color'], fill=True)
                 if line_index < len(lines) and line_index >= 0:
-                    tft.text(font, lines[line_index], 4, idx*17, config['ui_color'], config['bg_color'])
+                    tft.text(lines[line_index], 4, idx*17, config['ui_color'], font=font)
 
         else:
             for idx in range(0,8): #update top of screen first
                 line_index = screen_index + idx
-                tft.fill_rect(4,idx*17,232,16, config['bg_color'])
+                tft.rect(4,idx*17,232,16, config['bg_color'], fill=True)
                 if line_index < len(lines) and line_index >= 0:
-                    tft.text(font, lines[line_index], 4, idx*17, config['ui_color'], config['bg_color'])
+                    tft.text(lines[line_index], 4, idx*17, config['ui_color'], font=font)
+        tft.show()
         update_display = False
     
     else:
