@@ -2,7 +2,7 @@ author: echo-lalia
 author_link: "https://github.com/echo-lalia"
 license: MIT
 license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
-app_version: 1.2
+app_version: 2.0
 
 short_description: Fetch Wikipedia article summaries
 
@@ -15,3 +15,4 @@ installation_instructions: |
 
 devices:
 - Cardputer
+- TDeck
