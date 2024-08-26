@@ -1,10 +1,13 @@
-from lib import st7789fbuf, mhconfig, keyboard
 import machine, time
 import sys
+from lib import userinput
+from lib.hydra.config import Config
+from lib import display
+
 machine.freq(240_000_000)
 """
 MicroHydra BASIC Interface
-Version: 1.0
+Version: 1.1
 
 Implementation of BASIC & REPL (Read-Eval-Print Loop).
 Documentation:
@@ -79,24 +82,15 @@ _CHAR_WIDTH_HALF = const(_CHAR_WIDTH // 2)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GLOBAL OBJECTS: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # init object for accessing display
-tft = st7789fbuf.ST7789(
-    machine.SPI(
-        1, baudrate=40000000, sck=machine.Pin(36), mosi=machine.Pin(35), miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-)
+tft = display.Display(
+    use_tiny_buf=True,
+    )
 
 # object for accessing microhydra config (Delete if unneeded)
-config = mhconfig.Config()
+config = Config()
 
 # object for reading keypresses
-kb = keyboard.KeyBoard()
+kb = userinput.UserInput()
 
 # screen buffer
 scr_buf = [""] * 13
@@ -493,8 +487,13 @@ def main_loop():
                 current_text.append(' ')
             elif 'BSPC' in keys:
                 current_text = current_text[:-1]
-            else:
+            elif not 'shift' in keys:
                 current_text += [i.upper() if i in "abcdefghijklmnopqrstuvwxyz" else i.lower() for i in keys if i != 'ENT']
+                
+            
+            for i in ['shift','fn','ctl','alt','tab']:
+                if i in current_text:
+                    current_text.remove(i)
             
             scr_buf[11] = "] " + ''.join(current_text) + "_"
             scr_show()
