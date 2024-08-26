@@ -6,7 +6,7 @@ from lib import display
 from lib.kanji import Kanji
 """
 MicroHydra App Template
-Version: 1.0
+Version: 1.1
 
 
 This is a basic skeleton for a MicroHydra app, to get you started.
