@@ -110,7 +110,7 @@ class SleepManager:
         
         # set up deep sleep
         self.store()
-        esp32.wake_on_ext0(pin = KB.go, level = esp32.WAKEUP_ALL_LOW)
+        esp32.wake_on_ext0(pin = KB.G0, level = esp32.WAKEUP_ALL_LOW)
         machine.deepsleep()
 
         

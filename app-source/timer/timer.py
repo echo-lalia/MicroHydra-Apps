@@ -1,6 +1,9 @@
 import random, json, time, math
 from machine import SPI, Pin, PWM, freq, reset, Timer
-from lib import st7789py, keyboard, beeper
+from lib.display import Display
+from lib.userinput import UserInput
+from lib.hydra.config import Config
+from lib.hydra.beeper import Beeper
 from font import vga1_8x16 as small_font
 from font import vga2_16x32 as big_font
 import neopixel
@@ -10,32 +13,23 @@ freq(240000000)
 ledPin = Pin(21)
 led = neopixel.NeoPixel(ledPin, 1, bpp=3)
 
-tft = st7789py.ST7789(
-    SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
-    135,
-    240,
-    reset=Pin(33, Pin.OUT),
-    cs=Pin(37, Pin.OUT),
-    dc=Pin(34, Pin.OUT),
-    backlight=None,
-    rotation=1,
-    color_order=st7789py.BGR
-    )
+tft = Display()
+
 blight = PWM(Pin(38, Pin.OUT))
 blight.freq(1000)
 blight.duty_u16(40000)
 
-kb = keyboard.KeyBoard()
-beep = beeper.Beeper()
+kb = UserInput()
+beep = Beeper()
 led = neopixel.NeoPixel(ledPin, 1, bpp=3)
 
 numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 
-with open("config.json", "r") as conf:
-    config = json.loads(conf.read())
-    ui_color = config["ui_color"]
-    bg_color = config["bg_color"]
-    
+config = Config()
+ui_color = config["ui_color"]
+bg_color = config["bg_color"]
+
+
 def start_timer(time_qty, units):
     time_started = time.time()
     time_amount = float(time_qty)
@@ -107,13 +101,15 @@ def start_timer(time_qty, units):
         
         if display != prev_display and time_left > 0:
             tft.fill(bg_color)
-            tft.text(big_font, display, display_x, display_y, ui_color, bg_color)
+            tft.text(display, display_x, display_y, ui_color, font=big_font)
+            tft.show()
 
     blight.duty_u16(40000)
     tft.fill(bg_color)
-    tft.text(big_font, "00:00", 120 - len(display)*16//2, 70 - 16, ui_color, bg_color)
-    tft.text(small_font, "< any key >", 120 - len(display)*16//2, 118, ui_color, bg_color)
-    
+    tft.text("00:00", 120 - len(display)*16//2, 70 - 16, ui_color, font=big_font)
+    tft.text("< any key >", 120 - len(display)*16//2, 118, ui_color, font=small_font)
+    tft.show()
+
     timer = Timer(1, mode=Timer.PERIODIC, period=1000, callback = lambda t: alarm())
     
     while True:
@@ -126,7 +122,7 @@ def start_timer(time_qty, units):
 
 def alarm():
     led.fill((255,255,255)); led.write() # set led
-    beep.play(("C3","C4","C5"), 100, 0)
+    beep.play(("C3","C4","C5","C6"), 50, 10)
     led.fill((0,0,0)); led.write() # set led
 
 def main():
@@ -190,8 +186,8 @@ def main():
         if redraw:
             tft.fill(bg_color)
             
-            tft.text(big_font, time_value, 120- len(time_value)*16//2, 70 - 16 - 10, ui_color, bg_color)
-            tft.text(small_font, current_units, 120 - len(current_units)*8//2, 70 + 24 - 10, ui_color, bg_color)
+            tft.text(time_value, 120- len(time_value)*16//2, 70 - 16 - 10, ui_color, font=big_font)
+            tft.text(current_units, 120 - len(current_units)*8//2, 70 + 24 - 10, ui_color, font=small_font)
             
             select = ""
             if current_units is "seconds":
@@ -206,7 +202,9 @@ def main():
                 select += "[ h ]"
             else:
                 select += "  h  "
-            tft.text(small_font, select, 120 - len(select)*8//2, 118, ui_color, bg_color)
+            tft.text(select, 120 - len(select)*8//2, 118, ui_color, font=small_font)
+            
+            tft.show()
             redraw = False
         
         prev_pressed_keys = pressed_keys

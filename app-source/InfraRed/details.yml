@@ -1,13 +1,10 @@
 author: ndrnmnk
 author_link: https://github.com/ndrnmnk
 
-short_description: Infrared codes app.
+short_description: Infrared codes sender/reciever app.
 
 description: |
-  Infrared codes sender and reciever(untested) app.
-
-installation_instructions: |
-  It requires popup_options_2d function, which is not currently implemented in MicroHydra, copy it from [Main repo of this app](https://github.com/ndrnmnk/mh_infrared) 
+  Infrared codes sender and reciever app.
 
 
 devices:

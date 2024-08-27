@@ -1,4 +1,8 @@
-from lib import st7789fbuf, mhconfig, mhoverlay, smartkeyboard, beeper
+from lib.display import Display
+from lib.hydra.config import Config
+from lib.userinput import UserInput
+from lib.hydra.beeper import Beeper
+from lib.hydra.popup import UIOverlay
 from font import vga2_16x32 as font
 from font import vga1_8x16 as small_font  # Import a smaller font
 import os, machine, time, math, framebuf, random, urequests
@@ -40,23 +44,12 @@ _WS_PIN = const(43)
 _SD_PIN = const(42)
 
 # Initialize hardware                                                                                                                                                                                                                                                                                                                                      
-tft = st7789fbuf.ST7789(
-    machine.SPI(
-        1,baudrate=40000000,sck=machine.Pin(36),mosi=machine.Pin(35),miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-)
+tft = Display()
 
-config = mhconfig.Config()
-kb = smartkeyboard.KeyBoard(config=config)
-overlay = mhoverlay.UI_Overlay(config, kb, display_fbuf=tft)
-beep = beeper.Beeper()
+config = Config()
+kb = UserInput()
+overlay = UIOverlay()
+beep = Beeper()
 
 sd = None
 i2s = None
@@ -122,7 +115,7 @@ def display_play_screen(selected_file):
         if len(text) > _SMALL_CHARS_PER_SCREEN:
             text = text[:_SMALL_CHARS_PER_SCREEN - 3] + "..."
         
-        tft.bitmap_text(small_font, text, x, y, config.palette[4])
+        tft.text( text, x, y, config.palette[4], font=small_font)
     
     tft.show()
 
@@ -222,7 +215,7 @@ class EasyWavMenu:
             else:
                 x = 0
 
-            self.tft.bitmap_text(font, item, x, idx * _CHAR_HEIGHT, color)
+            self.tft.text( item, x, idx * _CHAR_HEIGHT, color, font=font)
 
     def get_full_filename(self, song):
             for artist in self.songs_by_artist:

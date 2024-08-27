@@ -1,7 +1,13 @@
 import yaml
 import os
 from PIL import Image
+import json
+import subprocess
+import shutil
+import datetime
 
+
+MPY_VERSION = "6.3"
 
 
 CWD = os.getcwd()
@@ -22,27 +28,37 @@ def main():
     # load each directory in APP_SOURCE as an AppSource object
     app_sources = [AppSource(dir_entry) for dir_entry in os.scandir(APP_SOURCE) if dir_entry.is_dir()]
 
+    # sort app_sources so that recently modified apps are first
+    app_sources.sort(key=lambda app: app.mtime, reverse=True)
+
     # make each app-specific readme
     for app in app_sources:
         app.make_readme()
 
     # collect stats on apps (for readme file)
     stats = get_app_stats(app_sources)
-
-    
     
     # update main README file with data from app_sources
     update_main_readme(app_sources, stats)
 
-    # make a small catalog of apps for each device. 
-    # (Designed to be easily downloaded/read from the device)
-    make_device_catalogs()
+    # before making catalogs, clean old contents
+    try:
+        shutil.rmtree('catalog-output')
+    except FileNotFoundError:
+        pass # directory might not exist
 
     # compile apps into .mpy files
-    compile_mpy_apps()
+    if os.name == 'nt':
+        print("WARNING: can't compile .mpy files on Windows.")
+    else:
+        compile_mpy_apps(app_sources)
     
     # zip apps to output folder for easy download from MicroHydra
-    zip_apps()
+    zip_apps(app_sources)
+
+    # make a small catalog of apps for each device. 
+    # (Designed to be easily downloaded/read from the device)
+    make_device_catalogs(app_sources)
 
 
 
@@ -81,6 +97,25 @@ class AppSource:
         self.license_string = self._make_license_string()
 
         self.icon_path = self._get_app_icon()
+
+        self.mtime = self._get_modified_time()
+
+
+    def _get_modified_time(self):
+        """Ask git for the most recent commit timestamp in this app, convert to epoch."""
+        # Inquire to git about latest commit
+        output = subprocess.check_output(['git', 'log', '-1', r'--format="%ai"', self.dir_entry.path])
+
+        # Convert bytes to str and clean it.
+        output = output.decode().strip().strip('"')
+
+        # convert to datetime
+        dt = datetime.datetime.strptime(output, '%Y-%m-%d %H:%M:%S %z')
+
+        # return epoch
+        return dt.timestamp()
+        
+
 
 
     def _get_app_icon(self):
@@ -204,7 +239,7 @@ def update_main_readme(app_sources, stats):
     This function reads all the apps provided in app_sources, and creates a main README.md file
     """
     # collect a set of all device names referenced by apps:
-    all_devices = stats['all_devices']
+    all_devices = sorted(stats['all_devices'])
     
     readme_text = """
 <!---
@@ -229,7 +264,7 @@ This file is generated from automatically. (Any changes here will be overwritten
     
 
     # add apps by device:
-    for device in sorted(all_devices):
+    for device in all_devices:
         readme_text += f"""
 
 <br/><br/><br/>        
@@ -288,21 +323,92 @@ def get_app_stats(app_sources):
 
 
 
-
-
-def make_device_catalogs():
-    # update main README file with data from app_sources
-    pass
+def extract_file_data(dir_entry, path_dir):
+    """Recursively extract DirEntry objects and relative paths for each file in directory."""
+    if dir_entry.is_dir():
+        output = []
+        for r_entry in os.scandir(dir_entry):
+            output += extract_file_data(r_entry, f"{path_dir}/{dir_entry.name}")
+        return output
+    else:
+        return [(dir_entry, path_dir)]
     
 
-def compile_mpy_apps():
+
+def make_device_catalogs(app_sources):
+    # make a small catalog of apps for each device. 
+    # (Designed to be easily downloaded/read from the device)
+    all_devices = {device for app in app_sources for device in app.details['devices']}
+    
+    
+    for device in all_devices:
+        device_catalog = {'mpy_version':MPY_VERSION}
+
+        apps_for_device = [app for app in app_sources if device in app.details['devices']]
+        for app in apps_for_device:
+            device_catalog[app.name] = f"{app.details['short_description']} - {app.details['author']}"
+
+        with open(os.path.join('catalog-output', f'{device.lower()}.json'), 'w') as catalog_file:
+            catalog_file.write(
+                json.dumps(device_catalog)
+            )
+    
+
+def compile_mpy_apps(app_sources):
     # compile apps into .mpy files
-    pass
+    for app in app_sources:
+        
+
+        target_path = os.path.join(app.dir_entry, app.app_name)
+        output_path = os.path.join(CWD, 'catalog-output', 'compiled', app.name)
+
+        if os.path.isdir(target_path):
+            app_files = []
+            for dir_entry in os.scandir(target_path):
+                app_files += extract_file_data(dir_entry, app.app_name)
+
+            for dir_entry, relative_path in app_files:
+                # Sometimes a slash appears and destroys os.path.join
+                relative_path = relative_path.removeprefix('/')
+
+                if dir_entry.name.endswith('.py'):
+                    # compile py file to target folder
+                    new_filename = dir_entry.name.removesuffix('.py') + '.mpy'
+
+                    fileoutput = os.path.join(output_path, relative_path, new_filename)
+                    mkdirs = os.path.join(output_path, relative_path)
+                    
+                    os.makedirs(mkdirs, exist_ok=True)
+                    subprocess.run(["./tools/mpy-cross", "-o", fileoutput, dir_entry.path, "-march=xtensawin"])
+
+                else:
+                    # if not a .py file, just copy it over
+                    mkdirs = os.path.join(output_path, relative_path)
+                    os.makedirs(mkdirs, exist_ok=True)
+
+                    fileoutput = os.path.join(output_path, relative_path, dir_entry.name)
+                    shutil.copyfile(dir_entry, fileoutput)
+        
+        elif target_path.endswith('.py'):
+            # if not a directory, target path should be a .py file, and should be compiled.
+            new_filename = app.app_name.removesuffix('.py') + '.mpy'
+            fileoutput = os.path.join(output_path, new_filename)
+
+            os.makedirs(output_path, exist_ok=True)
+            subprocess.run(["./tools/mpy-cross", "-o", fileoutput, target_path, "-march=xtensawin"])
+        
+        shutil.make_archive(output_path, 'zip', output_path)
+        shutil.rmtree(output_path)
 
 
-def zip_apps():
+
+
+def zip_apps(app_sources):
     # zip apps to output folder for easy download from MicroHydra
-    pass
+    for app in app_sources:
+        output_path = os.path.join(CWD, 'catalog-output', 'raw', app.name)
+
+        shutil.make_archive(output_path, 'zip', root_dir=app.dir_entry, base_dir=app.app_name)
 
 
 

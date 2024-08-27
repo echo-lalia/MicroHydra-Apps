@@ -1,9 +1,11 @@
-from lib import st7789fbuf, mhconfig, keyboard
+from lib import userinput
+from lib.hydra.config import Config
+from lib import display
 import machine, time
 
 """
 MicroHydra mmlPlay
-Version: 1.0
+Version: 1.1
 
 Description:
 A Simple and Naive MML (Music Macro Language) player for MicroHydra.
@@ -61,21 +63,12 @@ def generate_square_wave(frequency, duration, volume):
         i2s.write(samples)
 
 # init object for accessing display
-tft = st7789fbuf.ST7789(
-    machine.SPI(
-        1, baudrate=40000000, sck=machine.Pin(36), mosi=machine.Pin(35), miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-)
+tft = display.Display(
+    use_tiny_buf=True,
+    )
 
 # object for accessing microhydra config (Delete if unneeded)
-config = mhconfig.Config()
+config = Config()
 
 def tft_disp(current_text):
     tft.fill(config['bg_color'])
@@ -91,7 +84,7 @@ def tft_disp(current_text):
 tft_disp("Loading...")
 
 # object for reading keypresses
-kb = keyboard.KeyBoard()
+kb = userinput.UserInput()
 
 # Frequency table for notes in different octaves
 FREQ_TABLE = {
@@ -220,7 +213,6 @@ def main_loop():
 
 
     #Read MML file
-    kb = keyboard.KeyBoard()
     keybuf = []
     while not 'ENT' in keybuf:
         tmp = kb.get_new_keys()
@@ -262,3 +254,4 @@ except Exception as e:
     
     tft.text(text=f"{e}",x=0, y=0,color=config['ui_color'])
     tft.show()
+

@@ -1,12 +1,16 @@
-from lib import st7789fbuf
-from machine import Pin, SPI, freq
+from lib.display.fancydisplay import FancyDisplay
+from lib.hydra.beeper import Beeper
+from lib.hydra.config import Config
+from lib.userinput import UserInput
+from machine import Pin, SPI, freq, reset
 from array import array
 import math, time, random, json
 import _thread
 from esp32 import NVS
 from font import vga2_16x32 as fontbig
 from font import vga1_8x16 as fontsmall
-from lib import beeper
+
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ constants and globals: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -33,17 +37,7 @@ scroll_rate = -2
 
 freq(240_000_000)
 
-tft = st7789fbuf.ST7789(
-    SPI(1, baudrate=40000000, sck=Pin(36), mosi=Pin(35), miso=None),
-    135,
-    240,
-    reset=Pin(33, Pin.OUT),
-    cs=Pin(37, Pin.OUT),
-    dc=Pin(34, Pin.OUT),
-    backlight=Pin(38, Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-    )
+tft = FancyDisplay()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ functions: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -142,9 +136,9 @@ class Obstacle:
             tft.rect(self.x + 8, top_height - 8, 24, 4, 27536, fill=True)
             
             if top_height > 40:
-                tft.simple_poly(diamond_shape,self.x + 8, top_height - 54, 12678, fill=True)
+                tft.polygon(diamond_shape,self.x + 8, top_height - 54, 12678, fill=True)
             else:
-                tft.simple_poly(diamond_shape,self.x + 8, top_height - 42, 12678, fill=True)
+                tft.polygon(diamond_shape,self.x + 8, top_height - 42, 12678, fill=True)
             
             tft.hline(self.x, top_height, 40, 2127)
             
@@ -219,30 +213,30 @@ class Stamp:
 def title(tft, score, high_score, shared_data, lock):
     
     tft.ellipse(120,44,90,10,bg_color1,fill=True)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 29,18,47489)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 28,16,53710)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 27,14,60230)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 26,12,62674)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 25,10,47489)
-    tft.bitmap_text(fontbig,"FlappyStamp!", 24,9,57116 )
+    tft.text("FlappyStamp!", 29,18,47489, font=fontbig)
+    tft.text("FlappyStamp!", 28,16,53710, font=fontbig)
+    tft.text("FlappyStamp!", 27,14,60230, font=fontbig)
+    tft.text("FlappyStamp!", 26,12,62674, font=fontbig)
+    tft.text("FlappyStamp!", 25,10,47489, font=fontbig)
+    tft.text("FlappyStamp!", 24,9, 57116, font=fontbig)
     
     #tft.rect(32, 60, 56,20, 356  , fill=True)
     #tft.rect(152, 60, 56,20, 356  , fill=True)
     tft.ellipse(60,70,28,12,bg_color1, fill=True)
     tft.ellipse(180,70,28,12,bg_color1, fill=True)
-    tft.bitmap_text(fontsmall, "Score:", 38, 64, 47489 )
-    tft.bitmap_text(fontsmall, "Best:", 162, 64, 47489 )
-    tft.bitmap_text(fontsmall, "Score:", 38, 63, 57116  )
-    tft.bitmap_text(fontsmall, "Best:", 162, 63, 57116  )
+    tft.text( "Score:", 38, 64, 47489, font=fontsmall)
+    tft.text( "Best:", 162, 64, 47489, font=fontsmall)
+    tft.text( "Score:", 38, 63, 57116, font=fontsmall)
+    tft.text( "Best:", 162, 63, 57116, font=fontsmall)
     
     tft.rect(55 - (len(str(score)) * 8), 90, 10 +(len(str(score)) * 16),32, bg_color1 , fill=True)
     tft.rect(175 - (len(str(high_score)) * 8), 90, 10 +(len(str(high_score)) * 16), 32, bg_color1 , fill=True)
     
-    tft.bitmap_text(fontbig, str(score), 61 - (len(str(score)) * 8), 92, 47489 )
-    tft.bitmap_text(fontbig, str(score), 60 - (len(str(score)) * 8), 90, 57116  )
+    tft.text( str(score), 61 - (len(str(score)) * 8), 92, 47489, font=fontbig)
+    tft.text( str(score), 60 - (len(str(score)) * 8), 90, 57116, font=fontbig)
 
-    tft.bitmap_text(fontbig, str(high_score), 181 - (len(str(high_score)) * 8), 92, 47489 )
-    tft.bitmap_text(fontbig, str(high_score), 180 - (len(str(high_score)) * 8), 90, 57116  )
+    tft.text( str(high_score), 181 - (len(str(high_score)) * 8), 92, 47489, font=fontbig)
+    tft.text( str(high_score), 180 - (len(str(high_score)) * 8), 90, 57116, font=fontbig)
     
     tft.show()
     time.sleep_ms(100)
@@ -260,7 +254,7 @@ def title(tft, score, high_score, shared_data, lock):
 #thread1 cant access spi without thread0 sleeping
 def thread_1(lock,shared_data):
     import time, _thread, math
-    from lib import keyboard
+    from lib.userinput import UserInput
     from machine import reset
     from esp32 import NVS
     
@@ -272,7 +266,7 @@ def thread_1(lock,shared_data):
         nvs.set_i32("high_score",0)
         nvs.commit()
         
-    kb = keyboard.KeyBoard()
+    kb = UserInput()
     pressed_keys = set(kb.get_pressed_keys())
     prev_pressed_keys = pressed_keys
     
@@ -358,11 +352,10 @@ def thread_1(lock,shared_data):
         prev_pressed_keys = pressed_keys
         
         
-with open("config.json", "r") as conf:
-    config = json.loads(conf.read())
-    ui_sound = config["ui_sound"]
-        
-beep = beeper.Beeper()
+config = Config()
+ui_sound = config["ui_sound"]
+
+beep = Beeper()
 
 
 
