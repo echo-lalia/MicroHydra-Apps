@@ -1,4 +1,8 @@
-from lib import st7789fbuf, mhconfig, keyboard, battlevel
+from lib.display import Display
+from lib.hydra.config import Config
+from lib.hydra import color
+from lib.userinput import UserInput
+from lib import battlevel
 import machine, time, random, math
 from font import vga2_16x32 as font
 
@@ -66,24 +70,13 @@ _SLEEP_STATE_HOLD_DIM = const(2)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GLOBAL OBJECTS: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # init object for accessing display
-DISPLAY = st7789fbuf.ST7789(
-    machine.SPI(
-        1,baudrate=40000000,sck=machine.Pin(36),mosi=machine.Pin(35),miso=None),
-    _DISPLAY_HEIGHT,
-    _DISPLAY_WIDTH,
-    reset=machine.Pin(33, machine.Pin.OUT),
-    cs=machine.Pin(37, machine.Pin.OUT),
-    dc=machine.Pin(34, machine.Pin.OUT),
-    backlight=machine.Pin(38, machine.Pin.OUT),
-    rotation=1,
-    color_order=st7789fbuf.BGR
-    )
+DISPLAY = Display()
 
 # object for accessing microhydra config (Delete if unneeded)
-CONFIG = mhconfig.Config()
+CONFIG = Config()
 
 # object for reading keypresses
-KB = keyboard.KeyBoard()
+KB = UserInput()
 
 # power manager helps us go sleep and wake up :)
 POWER_MANAGER = powermanager.SleepManager(machine.RTC(), CONFIG, DISPLAY, KB)
@@ -217,8 +210,8 @@ def get_random_colors():
     else:
         v2 = random_gauss(loc=0,scale=0.2,clamp_range=(0,0.4))
     
-    r,g,b = mhconfig.hsv_to_rgb(h,s,v)
-    r2,g2,b2 = mhconfig.hsv_to_rgb(h2,s2,v2)
+    r,g,b = color.hsv_to_rgb(h,s,v)
+    r2,g2,b2 = color.hsv_to_rgb(h2,s2,v2)
     
     # convert to rgb 565
     r *= 31; g *= 63; b *= 31
@@ -232,8 +225,8 @@ def get_random_colors():
     b2 = round_clamp_int(b2, 0, 31)
     
     return (
-        mhconfig.combine_color565(r,g,b),
-        mhconfig.combine_color565(r2,g2,b2)
+        color.combine_color565(r,g,b),
+        color.combine_color565(r2,g2,b2)
         )
 
 def set_new_colors():
@@ -347,31 +340,34 @@ def draw_clock():
     
     # draw ':'
     if frame_switcher(1000):
-        DISPLAY.bitmap_text(font, ':', time_centered_x+(len(hour_str)*_BIG_CHAR_WIDTH)-4, CLOCK_Y+_CLOCK_BOX_PADDING+4, CONFIG.palette[0])
-        DISPLAY.bitmap_text(
-            font, ':', time_centered_x+(len(hour_str)*_BIG_CHAR_WIDTH)-5, CLOCK_Y+_CLOCK_BOX_PADDING+2,
-            _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[4]
+        DISPLAY.text(':', time_centered_x+(len(hour_str)*_BIG_CHAR_WIDTH)-4, CLOCK_Y+_CLOCK_BOX_PADDING+4, CONFIG.palette[0], font=font)
+        DISPLAY.text(
+            ':', time_centered_x+(len(hour_str)*_BIG_CHAR_WIDTH)-5, CLOCK_Y+_CLOCK_BOX_PADDING+2,
+            _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[4],
+            font=font,
             )
         
     # draw am/pm
-    DISPLAY.bitmap_text(font, AMPM, time_centered_x+(current_clock_width)-_AM_PM_WIDTH+3, CLOCK_Y+_AMPM_Y_OFFSET+2, CONFIG.palette[0])
-    DISPLAY.bitmap_text(
-        font, AMPM, time_centered_x+(current_clock_width)-_AM_PM_WIDTH+2, CLOCK_Y+_AMPM_Y_OFFSET,
-        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[3]
+    DISPLAY.text(AMPM, time_centered_x+(current_clock_width)-_AM_PM_WIDTH+3, CLOCK_Y+_AMPM_Y_OFFSET+2, CONFIG.palette[0], font=font)
+    DISPLAY.text(
+        AMPM, time_centered_x+(current_clock_width)-_AM_PM_WIDTH+2, CLOCK_Y+_AMPM_Y_OFFSET,
+        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[3],
+        font=font,
         )
     
     
     date_string = f"{_MONTH_NAMES[MONTH-1]} {DAY}"
-    DISPLAY.bitmap_text(font, date_string, CLOCK_X+_DATE_X_OFFSET+1, CLOCK_Y+_DATE_Y_OFFSET+1, 0)
-    DISPLAY.bitmap_text(
-        font, date_string, CLOCK_X+_DATE_X_OFFSET, CLOCK_Y+_DATE_Y_OFFSET,
-        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[4]
+    DISPLAY.text(date_string, CLOCK_X+_DATE_X_OFFSET+1, CLOCK_Y+_DATE_Y_OFFSET+1, 0, font=font)
+    DISPLAY.text(
+        date_string, CLOCK_X+_DATE_X_OFFSET, CLOCK_Y+_DATE_Y_OFFSET,
+        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[4],
+        font=font,
         )
     
     DISPLAY.text(get_day_suffix(), CLOCK_X+_DATE_X_OFFSET+(len(date_string)*_CHAR_WIDTH)+3, CLOCK_Y+_DATE_Y_OFFSET+5, 0)
     DISPLAY.text(
         get_day_suffix(), CLOCK_X+_DATE_X_OFFSET+(len(date_string)*_CHAR_WIDTH)+2, CLOCK_Y+_DATE_Y_OFFSET+4,
-        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[2]
+        _GRAY if POWER_MANAGER['sleep_state'] == _SLEEP_STATE_HOLD_DIM else CONFIG.palette[2],
         )
     
     draw_battery(CLOCK_X + _BATT_X_OFFSET, CLOCK_Y + _BATT_Y_OFFSET)

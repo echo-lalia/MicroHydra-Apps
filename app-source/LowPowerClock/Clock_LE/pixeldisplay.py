@@ -7,7 +7,7 @@ class PixelDisplay:
     """
     def __init__(
         self,
-        display_fbuf,
+        display,
         width=32,
         height=30,
         px_size=4,
@@ -21,7 +21,7 @@ class PixelDisplay:
         self.width = width
         self.height = height
         self.color = color
-        self.display = display_fbuf
+        self.display = display
         
     def draw(self, x, y):
         self._draw(
