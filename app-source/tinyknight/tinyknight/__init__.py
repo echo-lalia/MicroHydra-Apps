@@ -2,7 +2,7 @@ from machine import Pin, SPI
 import time
 import random
 
-from lib import keyboard
+from . import keyboard
 
 from . import st7789py
 from . import knight_sprites as knight_bitmap
