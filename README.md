@@ -76,6 +76,12 @@ For clarity, this is how the `app-source` folder is structured:
 *There are 13 apps for the Cardputer.*
 
 
+### <img src="images/icons/Music.png" width="14"> [Music](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Music)  
+> <img src="https://github.com/Benzamp.png?size=20" width="10"> **[Ben Harrison (Benzamp)](https://github.com/Benzamp)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A music player app.
+<br/>
+
 ### <img src="images/icons/InfraRed.png" width="14"> [InfraRed](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/InfraRed)  
 > <img src="https://github.com/ndrnmnk.png?size=20" width="10"> **[ndrnmnk](https://github.com/ndrnmnk)**  
 > Version: **1.0** | License: **?**  
@@ -110,12 +116,6 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
 > Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A reader that can display kanji.
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [Music](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Music)  
-> <img src="https://github.com/Benzamp.png?size=20" width="10"> **[Ben Harrison (Benzamp)](https://github.com/Benzamp)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
-> A music player app.
 <br/>
 
 ### <img src="images/default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
