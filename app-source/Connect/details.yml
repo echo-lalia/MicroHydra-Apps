@@ -1,0 +1,16 @@
+author: RealClearwave
+author_link: https://github.com/RealClearwave
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: MicroHydra Connectivity Kit
+
+description: |
+  MicroHydra Connectivity Kit is an application that allows you to connect your MicroHydra device to your Android, IOS, Windows and macOS devices.
+  The Kit is powered by Flutter. The Client App is available from [Here](https://github.com/RealClearwave/MicroHydra-Connect).
+  Now it supports Information view and Settings modification, and more features will be added in the future.
+  The Client App is only available for Android devices at the moment.
+
+devices:
+- Cardputer
