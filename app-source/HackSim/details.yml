@@ -1,0 +1,12 @@
+author: occulta1337
+
+short_description: Simple Hack Simulation for MicroHydra
+
+description: |
+   A dynamic simulation designed to mimic the aesthetic of classic hacking scenes, 
+   featuring various visual effects such as waveform displays, blinking characters, 
+   and random "system alert" messages to create an engaging hacker-style environment.
+
+
+devices:
+- Cardputer
