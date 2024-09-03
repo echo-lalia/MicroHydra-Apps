@@ -63,7 +63,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **14** apps, for **2** unique devices, by **5** different authors.*  
+*This repo currently hosts **15** apps, for **2** unique devices, by **6** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
 - [Cardputer](#cardputer)
@@ -73,8 +73,14 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 14 apps for the Cardputer.*
+*There are 15 apps for the Cardputer.*
 
+
+### <img src="images/default_icon.png" width="14"> [HackSim](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/HackSim)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> Simple Hack Simulation for MicroHydra
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [Connect](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Connect)  
 > <img src="https://github.com/RealClearwave.png?size=20" width="10"> **[RealClearwave](https://github.com/RealClearwave)**  
