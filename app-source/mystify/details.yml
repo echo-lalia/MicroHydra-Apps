@@ -1,0 +1,18 @@
+author: melange396
+author_link: "https://github.com/melange396"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: A moving polygon screensaver app
+
+description: |
+  `mystify` is screensaver-like application that displays a moving and bouncing polygon with rainbow trails, styled after "Mystify Your Mind" that once came with MS Windows.
+  This particular implementation was heavily influenced and inspired by this reddit post: https://www.reddit.com/r/CardPuter/comments/1btnrxi/mystify_screensaver_for_microhydra/ .
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+devices:
+- Cardputer
+- TDeck
