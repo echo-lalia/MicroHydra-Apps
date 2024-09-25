@@ -63,7 +63,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **15** apps, for **2** unique devices, by **6** different authors.*  
+*This repo currently hosts **16** apps, for **2** unique devices, by **7** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
 - [Cardputer](#cardputer)
@@ -73,8 +73,14 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 15 apps for the Cardputer.*
+*There are 16 apps for the Cardputer.*
 
+
+### <img src="images/default_icon.png" width="14"> [mystify](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mystify)  
+> <img src="https://github.com/melange396.png?size=20" width="10"> **[melange396](https://github.com/melange396)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A moving polygon screensaver app
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [HackSim](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/HackSim)  
 >  **occulta1337**  
@@ -171,8 +177,14 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Tdeck  
-*There are 4 apps for the Tdeck.*
+*There are 5 apps for the Tdeck.*
 
+
+### <img src="images/default_icon.png" width="14"> [mystify](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mystify)  
+> <img src="https://github.com/melange396.png?size=20" width="10"> **[melange396](https://github.com/melange396)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A moving polygon screensaver app
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
