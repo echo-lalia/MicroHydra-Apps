@@ -40,6 +40,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add *.md
+          git add **/README.md
           git add catalog-output
           git add images/icons
           git commit -m "auto-catalog"
