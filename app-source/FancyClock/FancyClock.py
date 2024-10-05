@@ -1,6 +1,6 @@
 """A simple clock program for MicroHydra.
 
-v 1.2
+v 1.3
 """
 
 import random
