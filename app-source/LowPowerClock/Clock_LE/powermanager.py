@@ -62,7 +62,7 @@ class SleepManager:
         CONFIG = config
         DISPLAY = display
         KB = kb
-        BLIGHT = machine.PWM(DISPLAY.backlight, freq=400)
+        BLIGHT = DISPLAY.backlight
         BLIGHT.duty_u16(_MAX_BRIGHT)
         
         mem = rtc.memory().decode()
