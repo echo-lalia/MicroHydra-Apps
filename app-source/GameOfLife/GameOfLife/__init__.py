@@ -306,7 +306,8 @@ class PixelDisplay:
         color=46518):
         """Init the PixelDisplay."""
 
-        bufsize = ((math.ceil(width/8)*8) * height) // 8
+        self.width_bytes = math.ceil(width/8)
+        bufsize = (self.width_bytes * height)
 
         self.buf = framebuf.FrameBuffer(bytearray(bufsize), width, height, framebuf.MONO_HLSB)
         self.px_size = px_size
@@ -377,13 +378,29 @@ class PixelDisplay:
         px_display_width = int(_PX_DISPLAY_WIDTH)
         px_display_height = int(_PX_DISPLAY_HEIGHT)
 
+        width_bytes = int(self.width_bytes)
+        prev_ptr = ptr8(previous_frame)
+        new_ptr = ptr8(new_frame)
+
         # iterate over each cell
-        for px_y in range(height):
-            for px_x in range(width):
+        px_y = 0
+        while px_y < height:
+            px_x = 0
+            while px_x < width:
+
+                # manually extract pixel value, to avoid performance overhead from calling `fbuf.pixel`
+                byte_idx = px_x//8 + px_y*width_bytes
+                byte_shift = (7 - px_x % 8)
+                is_alive = bool(
+                    # Calculate the byte index for the given pixel/cell
+                    prev_ptr[byte_idx]
+                    # Shift the retrieved byte so that the rightmost bit is the target pixel.
+                    >> byte_shift
+                    # bitwise AND to cut off all but the rightmost bit (result is 0 or 1).
+                    & 1
+                )
 
                 # count neighbors
-                is_alive = int(previous_frame.pixel(px_x, px_y)) == 1
-
                 # start count by subtracting self (will be added later)
                 neighbors = -1 if is_alive else 0
 
@@ -391,16 +408,23 @@ class PixelDisplay:
                 x = px_x-1; y = px_y-1
 
                 # count each value in a 3*3 grid:
-                for i in range(9):
-                    ix = x + (i % 3)
-                    iy = y + (i // 3)
-
-                    neighbors += int(previous_frame.pixel(
-                        ix % px_display_width,
-                        iy % px_display_height,
-                        ))
+                n = 0
+                while n < 9:
+                    nx = (x + (n % 3)) % px_display_width
+                    ny = (y + (n // 3)) % px_display_height
+                    # manually extract each neighbor value, to avoid performance overhead from `fbuf.pixel` method.
+                    neighbors += (
+                        # Calculate the byte index for the given pixel/cell
+                        prev_ptr[nx//8 + ny*width_bytes]
+                        # Shift the retrieved byte so that the rightmost bit is the target pixel.
+                        >> (7 - nx % 8)
+                        # bitwise AND to cut off all but the rightmost bit (result is 0 or 1).
+                        & 1
+                    )
+                    n += 1
 
                 color_idx = neighbors - 1
+
 
                 # play the game!
 
@@ -418,11 +442,14 @@ class PixelDisplay:
                     is_alive = True
                     color_idx = 4
 
-                # set our state
-                new_frame.pixel(
-                    px_x, px_y,
-                    1 if is_alive else 0,
-                    )
+
+                # set our state (Again, avoiding the use of `fbuf.pixel` for speed).
+                new_ptr[byte_idx] = (
+                    # Erase the previous value from the byte
+                    (new_ptr[byte_idx] & ~(1 << byte_shift))
+                    # Shift the new value to the correct position and bitwise OR it into place.
+                    | (int(is_alive) << byte_shift)
+                )
 
                 # draw ourselves!
                 if is_alive:
@@ -438,6 +465,9 @@ class PixelDisplay:
                         _PX_SIZE, _PX_SIZE,
                         DARKER[color_idx]
                         )
+                px_x += 1
+            px_y += 1
+
 
     def fill(self, color):
         """Fill with color."""
@@ -493,6 +523,10 @@ def main_loop():
         )
 
     counter = 0
+    slow_mode = False
+
+    # Start with a random soup
+    random_soup(PIXEL_DISPLAY.buf)
 
     while True:
 
@@ -506,7 +540,6 @@ def main_loop():
         # get list of newly pressed keys
         keys = KB.get_new_keys()
 
-        # if there are keys, convert them to a string, and store for display
         for key in keys:
             x = random.randint(0,_PX_MAX_CHAR_X)
             y = random.randint(0,_PX_MAX_CHAR_Y)
@@ -580,6 +613,10 @@ def main_loop():
                 fbuf_copy(PIXEL_DISPLAY.buf, PREVIOUS_FRAME.buf)
                 PIXEL_DISPLAY._life(PREVIOUS_FRAME.buf)  # noqa: SLF001
 
+            elif key == "s" and "CTL" in KB.key_state:
+                # slow mode toggle
+                slow_mode = not slow_mode
+
             elif key == "SPC":
                 PLAYING = not PLAYING
 
@@ -594,12 +631,13 @@ def main_loop():
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HOUSEKEEPING: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        if counter == 0:
+        if counter >= 10:
             gen_new_colors()
-        else:
-            time.sleep_ms(1)
+            counter = 0
+        elif slow_mode:
+            time.sleep_ms(50)
 
-        counter = (counter + 1) % 10
+        counter += 1
 
 
 # start the main loop
