@@ -1,3 +1,11 @@
+"""A simple app to query Wikipedia for page summaries.
+
+v1.3
+
+Changes:
+Fixed brightness, modified to use mhconfig
+
+"""
 import requests, network, time, json
 from machine import Pin, freq
 from lib.display import Display
@@ -8,27 +16,15 @@ from lib.hydra.popup import UIOverlay
 from font import vga1_8x16 as font
 
 
-"""
-A simple app to query Wikipedia for page summaries.
-
-v1.2
-
-Changes:
-Fixed brightness, modified to use mhconfig
-
-"""
-
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~ global objects/vars ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 freq(240000000)
 
 if "CARDPUTER" in Device:
     import neopixel
-    ledPin = Pin(21)
-    led = neopixel.NeoPixel(ledPin, 1, bpp=3)
+    led = neopixel.NeoPixel(Pin(21), 1, bpp=3)
 
-tft = Display()
+tft = Display(use_tiny_buf=("spi_ram" not in Device))
 
 config = Config()
 
@@ -89,18 +85,23 @@ def fetch_article():
     if "CARDPUTER" in Device:
         led.fill((10,10,0)); led.write() # set led
     
-    while not nic.isconnected(): # try connecting
+    # keep trying to connect until command works
+    while True:
         try:
             nic.connect(config['wifi_ssid'], config['wifi_pass'])
-            time.sleep(100)
-        except OSError as e:
-            errprint(f"Had this error when connecting: {e}")
+            break
+        except Exception as e:
+            gprint(f"Got this error while connecting: {repr(e)}", clr_idx=11)
+
+    # wait until connected
+    gprint(f"Waiting for connection...")
+    while not nic.isconnected():
+        time.sleep(100)
             
-    
     if "CARDPUTER" in Device:
         led.fill((0,10,10)); led.write() # set led
     
-    gprint("Connected!", clr_idx=6)
+    gprint("Making request...", clr_idx=6)
     
     response = requests.get(url)
 
@@ -123,10 +124,9 @@ def fetch_article():
             response = requests.get(url)
 
         else: #404 or another error
-            tft.fill(config.palette[2])
             gprint("No results.", clr_idx=11)
             time.sleep(2)
-            url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + user_query()
+            url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + OVERLAY.text_entry(start_value='', title="Enter query:")
             response = requests.get(url)
 
 
@@ -227,7 +227,3 @@ while True:
 
     else:
         time.sleep_ms(10)
-    
-
-
-
