@@ -2,13 +2,13 @@ author: echo-lalia
 author_link: "https://github.com/echo-lalia"
 license: MIT
 license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
-app_version: 1.0
+app_version: 1.1
 
 short_description: Watch a boid simulation unfold.
 
 description: |
   This app randomly arranges a bunch of [boids](https://en.wikipedia.org/wiki/Boids) (and obsticals), and simulates them.  
-  You can also hit enter to get a new random setup.
+  You can also hit enter to get a new random setup, or hold space to speed up the obsticals.
   
   This app randomly selects one of a few different pre-determined sets of input parameters.  
   Then, randomly places boids and (randomly sized) obsticals around the screen.

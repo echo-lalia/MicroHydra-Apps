@@ -1,6 +1,10 @@
 """Simple little boids sim."""
+try:
+    from .vector2d import Vector2D as Vec
+except ImportError:
+    from apps.boids.vector2d import  Vector2D as Vec
+
 from lib.display.fancydisplay import FancyDisplay as Display
-from .vector2d import Vector2D as Vec
 from lib.userinput import UserInput
 from lib.hydra import color
 from machine import freq
@@ -135,9 +139,12 @@ class Obstical:
         b = int(b*31)
         return color.combine_color565(r//2,g//2,b//2), color.combine_color565(r,g,b)
 
-    def move(self):
+    def move(self, fast):
         """Move the obstical."""
-        self.pos += self.v
+        if fast:
+            self.pos += self.v * 10
+        else:
+            self.pos += self.v
         # If out of bounds
         if (not self.min_x <= self.pos.x <= self.max_x) \
         or (not self.min_y <= self.pos.y <= self.max_y):
@@ -214,6 +221,7 @@ class Simulation:
         self.processed_boids = set()
 
         self.obs = [Obstical() for _ in range(Simulation.num_obs)]
+        self.fast = False
 
     @classmethod
     def _choose_sim(cls):
@@ -311,9 +319,9 @@ class Simulation:
         ))
 
         # Adjust weights based on frame amount (makes the value more consistent)
-        Simulation.avoid_weight /= Simulation.follow_per_frame
-        Simulation.follow_weight /= Simulation.follow_per_frame
-        Simulation.avg_v_weight /= Simulation.follow_per_frame
+        cls.avoid_weight /= cls.follow_per_frame
+        cls.follow_weight /= cls.follow_per_frame
+        cls.avg_v_weight /= cls.follow_per_frame
 
 
 
@@ -349,14 +357,13 @@ class Simulation:
 
         # Move the obsticals!
         for ob in self.obs:
-            ob.move()
+            ob.move(self.fast)
             ob.affect(boids)
 
-
-        for _ in range(Simulation.follow_per_frame):
+        for _ in range(1 if self.fast else Simulation.follow_per_frame):
             # To save CPU cycles, pick ONE boid at a time.
             # This boid will be affected by all other boids, and all other boids will be affected by it.
-            # No other relationships will be calculated this cycle
+            # No other relationships will be calculated this loop
             self.affected_idx = (self.affected_idx + 1) % len(boids)
             one_boid = boids[self.affected_idx]
 
@@ -372,9 +379,12 @@ class Simulation:
     def main(self):
         """Run the simulation."""
         while True:
-
             if "ENT" in self.input.get_new_keys():
                 return
+            elif "SPC" in self.input.key_state:
+                self.fast = True
+            elif self.fast:
+                self.fast = False
 
             self.display.fill(0)
             self.step()
