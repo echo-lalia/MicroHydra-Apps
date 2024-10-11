@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'app-src/**/*'
+      - '.github/workflows/catalog.yml'
+      - 'app-src/*'
   workflow_dispatch:
 
 permissions:
