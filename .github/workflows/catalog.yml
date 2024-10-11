@@ -2,8 +2,10 @@ name: Catalog Apps
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - 'app-src/**'
+      - 'app-src/**/*'
   workflow_dispatch:
 
 permissions:
