@@ -78,7 +78,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 ### <img src="images/icons/BoidSim.png" width="14"> [BoidSim](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/BoidSim)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > Watch a boid simulation unfold.
 <br/>
 
@@ -188,7 +188,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 ### <img src="images/icons/BoidSim.png" width="14"> [BoidSim](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/BoidSim)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
-> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> Version: **1.1** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > Watch a boid simulation unfold.
 <br/>
 
