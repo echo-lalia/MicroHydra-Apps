@@ -1,0 +1,19 @@
+author: Dan Ruscoe
+author_link: "https://github.com/ruscoe"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: A virtual fish app
+
+description: |
+  A fish swims across the screen. Press "F" to feed the fish, increasing its health.
+  Press "P" to enter play mode, where the fish will swim through a hoop.
+  Press "Esc" to return to default mode.
+  Press "G0" to exit to the launcher.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+devices:
+- Cardputer
