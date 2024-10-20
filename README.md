@@ -63,7 +63,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **17** apps, for **2** unique devices, by **7** different authors.*  
+*This repo currently hosts **18** apps, for **2** unique devices, by **8** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
 - [Cardputer](#cardputer)
@@ -73,8 +73,14 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 17 apps for the Cardputer.*
+*There are 18 apps for the Cardputer.*
 
+
+### <img src="images/default_icon.png" width="14"> [Fish](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Fish)  
+> <img src="https://github.com/ruscoe.png?size=20" width="10"> **[Dan Ruscoe](https://github.com/ruscoe)**  
+> Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
+> A virtual fish app
+<br/>
 
 ### <img src="images/icons/BoidSim.png" width="14"> [BoidSim](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/BoidSim)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
