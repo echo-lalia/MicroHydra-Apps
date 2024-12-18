@@ -1,11 +1,4 @@
-"""A simple app to query Wikipedia for page summaries.
-
-v1.3
-
-Changes:
-Fixed brightness, modified to use mhconfig
-
-"""
+"""A simple app to query Wikipedia for page summaries."""
 import requests, network, time, json
 from machine import Pin, freq
 from lib.display import Display
@@ -96,7 +89,7 @@ def fetch_article():
     # wait until connected
     gprint(f"Waiting for connection...")
     while not nic.isconnected():
-        time.sleep(100)
+        time.sleep_ms(100)
             
     if "CARDPUTER" in Device:
         led.fill((0,10,10)); led.write() # set led

@@ -303,8 +303,8 @@ class BASICInterpreter:
         self.running = True
         self.stop_flag = False
         while self.running and not self.stop_flag and self.pc <= self.pc_limit:
-            if "GO" in kb.get_new_keys():
-                print("[BREAK] GO PRESSED.")
+            if "G0" in kb.get_new_keys():
+                print("[BREAK] G0 PRESSED.")
                 break
             
             if self.pc in self.lines:
@@ -348,7 +348,7 @@ class BASICInterpreter:
                 scr_buf[11] = f"{var_name}? " + ''.join(current_text) + "_"
                 scr_show()
                 
-                if 'ENT' in keys or 'GO' in keys:
+                if 'ENT' in keys or 'G0' in keys:
                     scr_buf[11] = scr_buf[11][:-1]
                     try:
                         line = ''.join(current_text)
@@ -464,7 +464,7 @@ def main_loop():
     # create variable to remember text between loops
     current_text = []
     scr_feed("MicroHydra BASIC 1.0.")
-    scr_feed("Press GO Button to Break.")
+    scr_feed("Press G0 Button to Break.")
     scr_feed("] _")
     scr_show()
     
@@ -481,7 +481,7 @@ def main_loop():
         
         # if there are keys, convert them to a string, and store for display
         if keys:
-            if 'GO' in keys:
+            if 'G0' in keys:
                 machine.reset()
             if 'SPC' in keys:
                 current_text.append(' ')
