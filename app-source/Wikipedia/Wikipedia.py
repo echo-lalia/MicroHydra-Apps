@@ -96,7 +96,7 @@ def fetch_article():
     # wait until connected
     gprint(f"Waiting for connection...")
     while not nic.isconnected():
-        time.sleep(100)
+        time.sleep_ms(100)
             
     if "CARDPUTER" in Device:
         led.fill((0,10,10)); led.write() # set led
