@@ -75,9 +75,9 @@ def main():
 # Set up
 i2c = I2C(0, sda=Pin(2), scl=Pin(1),timeout=8000)   # cardputer pin settings
 
-# check for SCD40 sensor via i2c scan for device with address 62
+# check for SCD40 sensor via i2c scan for device with address 0x62 (int 98)
 results = i2c.scan()
-if len(results) == 0 and 62 in results:
+if len(results) == 0 or 98 not in results:
 
 	display.text(
 				'No SCD40 found',
