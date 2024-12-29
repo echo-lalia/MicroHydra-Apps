@@ -1,0 +1,18 @@
+author: jaycee14
+author_link: "https://github.com/jaycee14"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: Read CO2 from SCD40
+
+description: |
+  Read the CO2 ppm, temperature and relative humidity values from a SCD40 sensor.
+  Requires a SCD40 sensor to be connected via I2C.
+  Hold "G0" to exit to the launcher.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+devices:
+- Cardputer
