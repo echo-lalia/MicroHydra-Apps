@@ -1,0 +1,17 @@
+author: Kimka-x37
+author_link: "https://github.com/Kimka-x37"
+license: "MIT"
+license_link: "https://github.com/Kimka-x37/MicroHydra-Simple-calculator/blob/main/LICENSE"
+app_version: 1.0
+
+short_description: Simple calculator
+
+description: |
+  Calculator with basic things for MicroHydra
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer
