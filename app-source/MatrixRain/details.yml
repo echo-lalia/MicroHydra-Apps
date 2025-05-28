@@ -1,0 +1,10 @@
+author: occulta1337
+
+short_description: Simulates the famous "Matrix rain" effect.
+
+description: |
+   Simulates the famous "Matrix rain" effect you know, the cascading green characters from The Matrix movie but on your Cardputer screen!
+
+
+devices:
+- Cardputer
