@@ -1,0 +1,12 @@
+author: occulta1337
+
+short_description: A radar simulation for MicroHydra.
+
+description: |
+   RadarSignal is a radar simulation for MicroHydra. Watch the sweeping beam scan for enemy threats, as random blips appear across the screen.
+   Suddenly a full red screen warning takes over with urgent messages like "MISSILE INBOUND!" or "NUCLEAR ATTACK!"
+
+
+devices:
+- Cardputer
+- TDeck

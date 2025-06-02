@@ -1,0 +1,13 @@
+author: occulta1337
+
+short_description: Warning: Can cause nausea and trigger seizures in individuals with photosensitive epilepsy
+
+description: |
+   Simple Flashing light app with color cycling and the screen flashes between White, Red, Green, and Blue.
+
+   Warning: strobe lights can cause nausea and trigger seizures in individuals with photosensitive epilepsy
+
+
+devices:
+- Cardputer
+- TDeck
