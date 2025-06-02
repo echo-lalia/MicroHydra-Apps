@@ -7,8 +7,8 @@ This file is generated from the "details.yml" file. (Any changes here will be ov
 > App name: **StrobeLight**
 <br/>
 
-Simple Flashing light app with color cycling and the screen flashes between White, Red, Green, and Blue.
-Warning: strobe lights can cause nausea and trigger seizures in individuals with photosensitive epilepsy
+Simple Flashing light app with color cycling and the screen flashes between White, Red, Green, and Blue.  
+**Warning:** strobe lights can cause nausea and trigger seizures in individuals with photosensitive epilepsy
 
 
 <br/><br/>
