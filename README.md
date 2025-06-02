@@ -63,7 +63,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **21** apps, for **2** unique devices, by **10** different authors.*  
+*This repo currently hosts **23** apps, for **2** unique devices, by **10** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
 - [Cardputer](#cardputer)
@@ -73,8 +73,20 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 21 apps for the Cardputer.*
+*There are 23 apps for the Cardputer.*
 
+
+### <img src="images/default_icon.png" width="14"> [StrobeLight](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/StrobeLight)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> Warning: Can cause nausea and trigger seizures in individuals with photosensitive epilepsy
+<br/>
+
+### <img src="images/default_icon.png" width="14"> [RadarSignal](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/RadarSignal)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> A radar simulation for MicroHydra.
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [MatrixRain](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MatrixRain)  
 >  **occulta1337**  
@@ -207,8 +219,26 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Tdeck  
-*There are 6 apps for the Tdeck.*
+*There are 9 apps for the Tdeck.*
 
+
+### <img src="images/default_icon.png" width="14"> [StrobeLight](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/StrobeLight)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> Warning: Can cause nausea and trigger seizures in individuals with photosensitive epilepsy
+<br/>
+
+### <img src="images/default_icon.png" width="14"> [RadarSignal](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/RadarSignal)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> A radar simulation for MicroHydra.
+<br/>
+
+### <img src="images/default_icon.png" width="14"> [MatrixRain](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/MatrixRain)  
+>  **occulta1337**  
+> Version: **1.0** | License: **?**  
+> Simulates the famous "Matrix rain" effect.
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [Wikipedia](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/Wikipedia)  
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
