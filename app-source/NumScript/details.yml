@@ -1,0 +1,17 @@
+author: JustABreathingHuman
+author_link: "https://github.com/JustABreathingHuman"
+license: "MIT"
+license_link: "https://github.com/Kimka-x37/MicroHydra-Simple-calculator/blob/main/LICENSE"
+app_version: 1.0
+
+short_description: Scripting app
+
+description: |
+  A scripting app with a simplistic language for fast code creation
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer
