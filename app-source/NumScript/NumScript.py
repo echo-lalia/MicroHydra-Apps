@@ -1,5 +1,6 @@
 import json
 import time
+import random
 from lib import display, userinput
 from lib.hydra import config
 from font import vga1_8x16 as midfont
@@ -419,7 +420,7 @@ def show_terminal():
     else:
         display_start_y = 25
     available_lines = (120 - display_start_y) // 20
-    for i in range(available_lines):
+    for i in range(available_lines+1):
         idx = i + scrl
         if idx < len(terminal_log):
             log_line = terminal_log[idx]
@@ -432,7 +433,7 @@ def show_terminal():
     scroll_info = f"Logs: {len(terminal_log)}"
     if ths > 0:
         scroll_info += f" | H-Scroll: {ths}"
-    DISPLAY.text(scroll_info, 10, 120, CONFIG.palette[8], midfont)
+    DISPLAY.text(scroll_info, 175, 120, CONFIG.palette[8], midfont)
     draw_plot_display()
     DISPLAY.show()
 def show_menu():
