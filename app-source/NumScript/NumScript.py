@@ -560,7 +560,7 @@ def main_loop():
                         mscrn = msin
                         scrl = 0
                     elif sel == "Save/Load":
-                        mscrn = "Savescreen"
+                        mscrn = mssf
                         scrl = 0
                     elif sel == "Settings":
                         mscrn = msse
