@@ -38,6 +38,7 @@ msin = 2
 mssa = 3
 mste = 4
 msse = 5
+mssf = 6
 lpp = 5
 mscrn = None
 msel = 0
@@ -616,7 +617,7 @@ def main_loop():
                 elif key in ("ESC", "`"):
                     mscrn = msma
                     ths = 0
-        elif mscrn == "Savescreen":
+        elif mscrn == mssf:
             save_options = show_save(scrl)
             if keys:
                 key = str(keys[0])
