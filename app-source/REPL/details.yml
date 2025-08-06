@@ -1,0 +1,16 @@
+author: shakna-israel
+author_link: "https://github.com/shakna-israel"
+license: "3-Clause-BSD"
+license_link: "https://github.com/shakna-israel/MicroHydra-Apps/tree/main/app-source/REPL/LICENSE.md"
+app_version: 1.0
+
+short_description: A simple Python REPL
+
+description: |
+  A simple Python REPL
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+devices:
+- Cardputer
