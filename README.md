@@ -63,7 +63,7 @@ For clarity, this is how the `app-source` folder is structured:
 
 # Apps by device:  
 
-*This repo currently hosts **24** apps, for **2** unique devices, by **11** different authors.*  
+*This repo currently hosts **25** apps, for **2** unique devices, by **12** different authors.*  
 *Click a link below to jump to the apps for that specific device.*
 
 - [Cardputer](#cardputer)
@@ -73,8 +73,14 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer  
-*There are 24 apps for the Cardputer.*
+*There are 25 apps for the Cardputer.*
 
+
+### <img src="images/default_icon.png" width="14"> [REPL](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/REPL)  
+> <img src="https://github.com/shakna-israel.png?size=20" width="10"> **[shakna-israel](https://github.com/shakna-israel)**  
+> Version: **1.0** | License: **[3-Clause-BSD](https://github.com/shakna-israel/MicroHydra-Apps/tree/main/app-source/REPL/LICENSE.md)**  
+> A simple Python REPL
+<br/>
 
 ### <img src="images/default_icon.png" width="14"> [NumScript](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/NumScript)  
 > <img src="https://github.com/JustABreathingHuman.png?size=20" width="10"> **[JustABreathingHuman](https://github.com/JustABreathingHuman)**  
