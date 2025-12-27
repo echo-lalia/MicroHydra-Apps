@@ -1,0 +1,7 @@
+name: Hello World
+description: A simple Hello World app with a customizable menu for the MicroHydra Cardputer.
+author: Your Name
+license: MIT
+version: 1.0.0
+target_devices:
+  - Cardputer
