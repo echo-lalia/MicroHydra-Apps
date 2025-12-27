@@ -25,7 +25,7 @@ bg_color = config.palette[2]  # Background color
 inactive_color = config.palette[5]  # Inactive menu item text color
 
 # Menu items
-menu_items = ["Option 1", "Option 2", "Exit"]
+menu_items = ["Option 1", "About", "Exit"]
 
 # Function to display the menu
 def draw_menu(current_selection, pressed_keys=None):
@@ -74,7 +74,7 @@ def menu_screen():
                 time.sleep(1)
                 sys.exit()  # Exits the application
             else:
-                # Stay on the selected option until "BSPC" is pressed
+                # Show selected item screen and return when "BSPC" is pressed
                 show_selected_option(selected_item)
                 return  # Exits the menu state back to "Hello World"
 
@@ -82,11 +82,21 @@ def menu_screen():
         prev_pressed_keys = pressed_keys
         time.sleep(0.1)  # Polling delay for smoother key handling
 
-# Function to display the selected option and wait for "BSPC" to go back
+# Function to display the selected option and stay until BSPC is pressed
 def show_selected_option(selected_item):
     tft.fill(bg_color)
-    tft.text(f"{selected_item} screen", 10, 50, ui_color, font)
-    tft.text("Press BSPC to go back", 10, 90, inactive_color, font)  # Instructions to go back
+
+    if selected_item == "About":
+        # Special behavior for "About" option
+        tft.text("About:", 10, 50, ui_color, font)
+        tft.text("Hello World App", 10, 70, inactive_color, font)
+        tft.text("Version: 1.0.0", 10, 90, inactive_color, font)
+        tft.text("Press BSPC to go back", 10, 130, inactive_color, font)
+    else:
+        # Generic behavior for all other options
+        tft.text(f"{selected_item} screen", 10, 50, ui_color, font)
+        tft.text("Press BSPC to go back", 10, 90, inactive_color, font)
+
     tft.show()
 
     # Wait until BSPC is pressed to return
