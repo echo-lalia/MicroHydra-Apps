@@ -91,7 +91,7 @@ def show_selected_option(selected_item):
         tft.text("About:", 10, 50, ui_color, font)
         tft.text("Hello World App", 10, 70, inactive_color, font)
         tft.text("Version: 1.0.0", 10, 90, inactive_color, font)
-        tft.text("Press BSPC to go back", 10, 130, inactive_color, font)
+        tft.text("Press BSPC to go back", 10, 110, inactive_color, font)
     else:
         # Generic behavior for all other options
         tft.text(f"{selected_item} screen", 10, 50, ui_color, font)
