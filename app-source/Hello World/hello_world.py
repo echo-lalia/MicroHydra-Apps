@@ -2,6 +2,7 @@ from machine import freq
 from lib.display import Display
 from lib.userinput import UserInput
 from font import vga1_8x16 as font
+from lib.hydra.config import Config
 import sys
 import time
 
@@ -10,86 +11,106 @@ freq(240_000_000)
 
 # Initialize display and user input
 tft = Display(use_tiny_buf=True)
-kb = UserInput()  # Initialize UserInput for handling key presses
+kb = UserInput()
 
 # Configure backlight
 blight = tft.backlight
 blight.freq(1000)
 blight.duty_u16(40000)
 
-# Colors for the display
-bg_color = 0x000000  # Black background
-text_color = 0xFFFFFF  # White text
-highlight_color = 0x00FF00  # Highlighted menu item color
+# Load configuration palette for colors
+config = Config()
+ui_color = config.palette[8]  # Foreground/active text color
+bg_color = config.palette[2]  # Background color
+inactive_color = config.palette[5]  # Inactive menu item text color
 
 # Menu items
 menu_items = ["Option 1", "Option 2", "Exit"]
 
-# Function to display Hello World
-def show_hello_world():
+# Function to display the menu
+def draw_menu(current_selection, pressed_keys=None):
     tft.fill(bg_color)  # Clear the screen
-    tft.text("Hello World", 60, 70, text_color, font)
-    tft.text("Press G0 for menu", 20, 110, text_color, font)
-    tft.show()
 
-# Function to render the menu
-def draw_menu(current_selection):
-    tft.fill(bg_color)  # Clear the screen
-    tft.text("Menu", 10, 10, text_color, font)
+    # Display raw keypress data at the top for debugging (if provided)
+    if pressed_keys is not None:
+        debug_text = str(pressed_keys)
+        tft.text(f"Keys: {debug_text}", 10, 10, ui_color, font)
 
+    # Draw each menu item
     for i, item in enumerate(menu_items):
-        color = highlight_color if i == current_selection else text_color
-        tft.text(item, 20, 50 + i * 20, color, font)  # Render menu items
+        color = ui_color if i == current_selection else inactive_color  # Active vs. inactive color
+        x = 10
+        y = 50 + i * 20  # Vertical spacing for items
+        tft.text(item, x, y, color, font)
+
     tft.show()
 
-# Function to handle the menu
+# Function to handle menu navigation and selection
 def menu_screen():
-    current_selection = 0  # Default selection is the first item
+    current_selection = 0  # Default to the first menu item
+    prev_pressed_keys = []
 
     while True:
-        # Draw the menu
-        draw_menu(current_selection)
-
-        # Get the pressed keys
+        # Read currently pressed keys
         pressed_keys = kb.get_pressed_keys()
 
-        # Handle navigation keys (; for UP, . for DOWN)
-        if ";" in pressed_keys:  # UP key
-            current_selection = (current_selection - 1) % len(menu_items)  # Wrap around
-        elif "." in pressed_keys:  # DOWN key
-            current_selection = (current_selection + 1) % len(menu_items)
+        # Render menu items with the current selection
+        draw_menu(current_selection, pressed_keys)
 
-        # Handle ENT key for selection
-        if "ENT" in pressed_keys:  # Select the current menu item
+        # Navigation logic
+        if ";" in pressed_keys and ";" not in prev_pressed_keys:  # UP key
+            current_selection = (current_selection - 1) % len(menu_items)  # Wrap to the last item if at the top
+        elif "." in pressed_keys and "." not in prev_pressed_keys:  # DOWN key
+            current_selection = (current_selection + 1) % len(menu_items)  # Wrap to the first item if at the bottom
+
+        # Selection logic
+        if "GO" in pressed_keys or "ENT" in pressed_keys:  # Confirm with GO or ENT key
             selected_item = menu_items[current_selection]
             if selected_item == "Exit":
-                # Exit the application
+                # Exit action
                 tft.fill(bg_color)
-                tft.text("Exiting...", 50, 70, text_color, font)
+                tft.text("Exiting...", 60, 50, ui_color, font)
                 tft.show()
                 time.sleep(1)
-                sys.exit()
+                sys.exit()  # Exits the application
             else:
-                # Show selection confirmation and return to Hello World
-                tft.fill(bg_color)
-                tft.text(f"Selected: {selected_item}", 20, 70, text_color, font)
-                tft.show()
-                time.sleep(1.5)
-                return  # Return to Hello World screen
+                # Stay on the selected option until "BSPC" is pressed
+                show_selected_option(selected_item)
+                return  # Exits the menu state back to "Hello World"
 
-        time.sleep(0.1)  # Polling delay to avoid CPU overuse
+        # Track the previous pressed keys to handle single key press detection
+        prev_pressed_keys = pressed_keys
+        time.sleep(0.1)  # Polling delay for smoother key handling
 
-# Main program logic
+# Function to display the selected option and wait for "BSPC" to go back
+def show_selected_option(selected_item):
+    tft.fill(bg_color)
+    tft.text(f"{selected_item} screen", 10, 50, ui_color, font)
+    tft.text("Press BSPC to go back", 10, 90, inactive_color, font)  # Instructions to go back
+    tft.show()
+
+    # Wait until BSPC is pressed to return
+    while True:
+        pressed_keys = kb.get_pressed_keys()
+        if "BSPC" in pressed_keys:  # Return to Hello World
+            break
+        time.sleep(0.1)
+
+# Main function to display "Hello World" and handle transitions
 def main():
     while True:
-        # Show Hello World and wait for G0 to be pressed
-        show_hello_world()
+        # Clear the screen and show the "Hello World" message
+        tft.fill(bg_color)
+        tft.text("Hello World", 60, 70, ui_color, font)
+        tft.text("Press G0 for Context Menu", 10, 110, ui_color, font)
+        tft.show()
 
+        # Wait for G0 to enter menu screen
         while True:
             pressed_keys = kb.get_pressed_keys()
-            if "G0" in pressed_keys:  # Wait for G0 to open the menu
-                menu_screen()  # Enter the menu once G0 is pressed
-                break  # Exit the loop and return to Hello World
+            if "G0" in pressed_keys:
+                menu_screen()  # Display menu screen
+                break  # Go back to the "Hello World" screen after exiting the menu
 
-# Run the app
+# Run the application
 main()
