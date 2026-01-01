@@ -1,0 +1,17 @@
+author: OpenEngineeringProject
+author_link: "https://github.com/OpenEngineeringProject"
+license: MIT
+license_link: https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE
+app_version: 1.0
+
+short_description: Single Player Pong Game
+
+description: |
+  Single player pong, try to get a high score as difficulty and speed increase accordingly.
+  Control the paddle up and down using the ";" (up) and "." (down) keys. Use "v" to toggle audio. 
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+devices:
+- Cardputer
