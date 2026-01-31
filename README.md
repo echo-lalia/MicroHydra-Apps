@@ -76,16 +76,16 @@ For clarity, this is how the `app-source` folder is structured:
 *There are 26 apps for the Cardputer.*
 
 
+### <img src="images/icons/REPL.png" width="14"> [REPL](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/REPL)  
+> <img src="https://github.com/shakna-israel.png?size=20" width="10"> **[shakna-israel](https://github.com/shakna-israel)**  
+> Version: **1.0** | License: **[3-Clause-BSD](https://github.com/shakna-israel/MicroHydra-Apps/tree/main/app-source/REPL/LICENSE.md)**  
+> A simple Python REPL
+<br/>
+
 ### <img src="images/icons/PongGame.png" width="14"> [PongGame](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/PongGame)  
 > <img src="https://github.com/OpenEngineeringProject.png?size=20" width="10"> **[OpenEngineeringProject](https://github.com/OpenEngineeringProject)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > Single Player Pong Game
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [REPL](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/REPL)  
-> <img src="https://github.com/shakna-israel.png?size=20" width="10"> **[shakna-israel](https://github.com/shakna-israel)**  
-> Version: **1.0** | License: **[3-Clause-BSD](https://github.com/shakna-israel/MicroHydra-Apps/tree/main/app-source/REPL/LICENSE.md)**  
-> A simple Python REPL
 <br/>
 
 ### <img src="images/default_icon.png" width="14"> [NumScript](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/NumScript)  
