@@ -77,6 +77,12 @@ For clarity, this is how the `app-source` folder is structured:
 *There are 27 apps for the Cardputer.*
 
 
+### <img src="images/default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
+> <img src="https://github.com/foopod.png?size=20" width="10"> **[foopod](https://github.com/foopod)**  
+> Version: **1.0** | License: **?**  
+> A kitchen timer app.
+<br/>
+
 ### <img src="images/default_icon.png" width="14"> [mystify](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mystify)  
 > <img src="https://github.com/melange396.png?size=20" width="10"> **[melange396](https://github.com/melange396)**  
 > Version: **1.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
@@ -93,12 +99,6 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
 > Version: **2.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A dice rolling app
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
-> <img src="https://github.com/foopod.png?size=20" width="10"> **[foopod](https://github.com/foopod)**  
-> Version: **1.0** | License: **?**  
-> A kitchen timer app.
 <br/>
 
 ### <img src="images/icons/GameOfLife.png" width="14"> [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
@@ -244,7 +244,7 @@ For clarity, this is how the `app-source` folder is structured:
 <br/><br/><br/>        
 
 ## Cardputer_Adv  
-*There are 15 apps for the Cardputer_Adv.*
+*There are 14 apps for the Cardputer_Adv.*
 
 
 ### <img src="images/default_icon.png" width="14"> [mystify](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/mystify)  
@@ -263,12 +263,6 @@ For clarity, this is how the `app-source` folder is structured:
 > <img src="https://github.com/echo-lalia.png?size=20" width="10"> **[echo-lalia](https://github.com/echo-lalia)**  
 > Version: **2.0** | License: **[MIT](https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE)**  
 > A dice rolling app
-<br/>
-
-### <img src="images/default_icon.png" width="14"> [timer](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/timer)  
-> <img src="https://github.com/foopod.png?size=20" width="10"> **[foopod](https://github.com/foopod)**  
-> Version: **1.0** | License: **?**  
-> A kitchen timer app.
 <br/>
 
 ### <img src="images/icons/GameOfLife.png" width="14"> [GameOfLife](https://github.com/echo-lalia/MicroHydra-Apps/tree/main/app-source/GameOfLife)  
