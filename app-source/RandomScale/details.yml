@@ -1,0 +1,19 @@
+author: Kevin Mcgrinder
+author_link: "https://github.com/kjmcgrinder"
+license: "MIT"
+license_link: "https://github.com/echo-lalia/MicroHydra-Apps/blob/main/LICENSE"
+app_version: 1.0
+
+short_description: Randomly select and play a major or minor scale for practicing with an instrument
+
+description: |
+  Made for memorizing scales on my sax, this will simply print a major or minor scale to the screen, and then play a short example of that scale
+  
+  Note that the played scale is tuned to C.
+
+installation_instructions: |
+  Copy the app into your `/apps` folder.
+
+
+devices:
+- Cardputer
