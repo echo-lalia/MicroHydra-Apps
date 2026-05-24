@@ -47,7 +47,8 @@ day_names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sund
 # ── Glass2 Grove OLED (SSD1309, optional) ────────────────────────────────────
 _g2_ready = False
 _g2 = None
-_g2_view = 0  # 0 = datetime, 1 = battery
+_g2_view = 0   # 0 = datetime, 1 = battery
+_g2_prev_sec = -1
 
 if _has_ssd1306:
     try:
@@ -229,10 +230,12 @@ while True:
 
     else:
         loop_timer += 1
-        # update seconds on Glass2 every frame so the clock ticks visibly
         year, month, day, hour_24, minute, second, weekday, _ = time.localtime()
 
-    _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
+    # update Glass2 once per second; skip entirely when display is idle
+    if _g2_ready and current_bright > 0 and second != _g2_prev_sec:
+        _g2_prev_sec = second
+        _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
 
 
 
@@ -350,6 +353,10 @@ while True:
             # already awake — cycle Glass2 view
             _g2_view = (_g2_view + 1) % 2
             _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
+        elif _g2_ready:
+            # waking from idle — power OLED back on
+            _g2.poweron()
+            _g2_prev_sec = -1  # force immediate redraw
         current_bright = 10
         tft.set_brightness(current_bright)
         bright_timer = 0
@@ -360,6 +367,8 @@ while True:
     elif bright_timer >= 50 and current_bright > 0:
         current_bright -= 1
         tft.set_brightness(current_bright)
+        if current_bright == 0 and _g2_ready:
+            _g2.poweroff()
         bright_timer = 0
     else:
         bright_timer += 1
