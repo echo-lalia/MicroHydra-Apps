@@ -226,10 +226,13 @@ while True:
 
         batfill_total_width = (time_width + 16) - (date_width + 4)
         batt_pct = batt.read_pct()
-        _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
 
     else:
         loop_timer += 1
+        # update seconds on Glass2 every frame so the clock ticks visibly
+        year, month, day, hour_24, minute, second, weekday, _ = time.localtime()
+
+    _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
 
 
 
