@@ -1,0 +1,42 @@
+author: Swissola
+author_link: "https://github.com/Swissola"
+license: MIT
+license_link: "https://github.com/Swissola/MicroHydra-Apps/blob/main/LICENSE"
+app_version: 1.0
+
+short_description: WiFi wardriving with GPS tagging and WiGLE CSV export.
+
+description: |
+  Scans WiFi access points across channels 1–13 while a GPS receiver provides
+  location data. Detected APs are stored with their BSSID, SSID, auth mode,
+  signal strength, channel, and GPS coordinates.
+
+  Results can be saved to SD card in WiGLE CSV format (compatible with the
+  WiGLE.net wardriving database) by pressing B.
+
+  Optionally displays live stats (AP count, channel, GPS fix) on an M5Stack
+  Glass2 Grove OLED if one is connected to GPIO1/GPIO2.
+
+  **Hardware requirements:**
+  - Cardputer ADV
+  - M5Stack LoRa-1262 + GPS cap (U214) — for GPS (UART2, GPIO15/13, 115200 baud)
+  - MicroSD card — for saving WiGLE CSV files
+  - M5Stack Glass2 Unit (optional) — Grove port GPIO1/GPIO2
+
+  **Controls:**
+  - `A` — Start / stop scanning
+  - `B` — Save WiGLE CSV to SD card
+  - `Up/Down` — Scroll AP list
+  - `Backspace/ESC` — Exit to launcher
+
+installation_instructions: |
+  Copy `wardrive.py` to `/apps/wardrive.py` on your device.
+
+  For GPS support, connect the M5Stack LoRa-1262 + GPS cap (U214) to the
+  Cardputer ADV EXT header. GPS RX=GPIO15, TX=GPIO13 at 115200 baud.
+
+  For the Glass2 OLED display, connect via the Cardputer ADV Grove port
+  (GPIO1=SCL, GPIO2=SDA).
+
+devices:
+- Cardputer_Adv
