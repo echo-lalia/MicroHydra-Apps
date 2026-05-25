@@ -118,7 +118,10 @@ async def serve_client(reader, writer):
 
         # Parse HTTP request
         request_line = request_line.decode('utf-8')
-        method, path, _ = request_line.split()
+        parts = request_line.split()
+        if len(parts) < 3:
+            continue
+        method, path, _ = parts[0], parts[1], parts[2]
         
         if path == '/sysinfo' and method == 'GET':
             response = json.dumps(sys_info)

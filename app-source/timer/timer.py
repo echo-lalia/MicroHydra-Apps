@@ -171,7 +171,7 @@ def main():
             if time_value != "0":
                 # remove leading 0s
                 time_value = time_value.lstrip("0")
-                if time_value[0] == ".":
+                if time_value and time_value[0] == ".":
                     time_value = "0" + time_value
             redraw = True
 

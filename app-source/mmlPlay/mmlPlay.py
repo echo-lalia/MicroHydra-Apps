@@ -46,6 +46,8 @@ i2s = machine.I2S(0,
 
 # Generate a square wave buffer
 def generate_square_wave(frequency, duration, volume):
+    if frequency == 0:
+        return bytearray(1024)
     samples = bytearray(1024)
     half_period = int(44100 / (2 * frequency))
     amplitude = int(volume * 32767)
@@ -110,6 +112,7 @@ default_volume = 4
 
 def get_note_frequency(note, octave):
     if note in FREQ_TABLE:
+        octave = max(0, min(len(FREQ_TABLE['C']) - 1, octave))
         return FREQ_TABLE[note][octave]
     return None
 

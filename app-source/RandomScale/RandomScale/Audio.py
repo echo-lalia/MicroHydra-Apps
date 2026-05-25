@@ -44,11 +44,13 @@ def generateTriangleWave(freq, volume):
 	sampleIncrement = (math.pi / SAMPLE_RATE) * freq / 2
 	currentIncrement = 0
 	
+	if freq == 0:
+		return bytearray()
 	sampleList = bytearray()
 	period = 1/freq
 	while currentIncrement < period:
 		sample = math.floor( (math.pi * freq) * math.asin(abs(math.sin(math.pi * currentIncrement))) * 127.5 / volume)
-		sampleList = bytearray((sample, sample))
+		sampleList += bytearray((sample, sample))
 		currentIncrement += sampleIncrement
 			
 	return sampleList

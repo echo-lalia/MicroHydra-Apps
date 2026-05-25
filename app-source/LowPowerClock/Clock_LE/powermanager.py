@@ -86,7 +86,7 @@ class SleepManager:
         """Store our state in the RTC memory"""
         # check if we live in the apps path
         path_list = __name__.replace('.','/').split('/')
-        if path_list[0] == "sd" or path_list[1] == "sd":
+        if len(path_list) > 1 and (path_list[0] == "sd" or path_list[1] == "sd"):
             rtcdata = _PATH_HERE_SD + APP_NAME + _SEPARATOR + json.dumps(self.state)
         else:
             rtcdata = _PATH_HERE_FLASH + APP_NAME + _SEPARATOR + json.dumps(self.state)

@@ -55,8 +55,11 @@ kanji = Kanji(tft)
 #     print("Hello world!")
 
 def show_file(fn,idx):
-    fn.seek(idx)
-    buf = fn.read(100)
+    try:
+        fn.seek(idx)
+        buf = fn.read(100)
+    except OSError:
+        return fn.tell()
     buf = buf.replace('\n','').replace('\r','')
     # clear framebuffer 
     tft.fill(config['bg_color'])
