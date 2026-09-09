@@ -1,0 +1,30 @@
+author: ckcampbell248
+author_link: "https://github.com/ckcampbell248"
+license: "MIT"
+license_link: ""
+app_version: 1.0
+
+short_description: IR TV sleep timer with countdown and auto power-off
+
+description: |
+  Set a countdown timer (in minutes), and this app will automatically send
+  an IR power-off signal to your TV when the timer reaches zero. Includes
+  a live countdown display, add/subtract minutes controls, and a
+  configurable IR code (NEC protocol) via `config.json` for different TV
+  brands/models. Ships pre-configured with a working LG TV power-off code.
+
+  Note: the default IR code is only confirmed to work on some LG TVs. If
+  your TV is a different brand/model, you will need to find the correct
+  NEC address/command (or raw IR signal) for your TV's power button and
+  update `config.json` accordingly before the app will work with your TV.
+  Code databases such as Flipper-IRDB (https://github.com/Lucaslhm/Flipper-IRDB)
+  are a good place to look these up.
+
+installation_instructions: |
+  Copy the `TVSleepTimer` folder into your `/apps` folder. Before use,
+  check `config.json` and update `power_address`/`power_command` (or
+  `power_signal` for raw codes) to match your TV's brand/model if it is
+  not an LG TV using the default code.
+
+devices:
+- Cardputer

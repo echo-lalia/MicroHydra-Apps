@@ -1,0 +1,15 @@
+{
+    "_comment": "power_protocol can be 'nec' (use power_address/power_command) or 'raw' (use power_signal, a list of raw mark/space microsecond pulses). Defaults below are the confirmed-working LG TV NEC power-toggle code (address=0x04, command=0x08, 33% carrier duty) for an LG OLED77C9PUB.",
+    "_color_comment": "ui_color_rgb/bg_color_rgb are [r, g, b] (0-255 each). Default is a dim/soft red, easy on the eyes at night. For a soft blue instead, try [20, 60, 160].",
+    "tv_brand": "LG",
+    "tv_model": "OLED",
+    "power_protocol": "nec",
+    "power_address": 4,
+    "power_command": 8,
+    "power_signal": [],
+    "power_duty": 33,
+    "default_minutes": 120,
+    "add_minutes": 10,
+    "ui_color_rgb": [160, 20, 20],
+    "bg_color_rgb": [0, 0, 0]
+}

@@ -1,0 +1,18 @@
+author: ckcampbell248
+author_link: "https://github.com/ckcampbell248"
+license: "MIT"
+license_link: ""
+app_version: 1.0
+
+short_description: Mandelbrot set fractal viewer with color gradient
+
+description: |
+  Renders the Mandelbrot set with a smooth, classic multicolor gradient
+  (dark blue to cyan, green, yellow, orange, and dark red), correctly
+  proportioned to fill the whole screen.
+
+installation_instructions: |
+  Copy `mandelbrot.py` into your `/apps` folder.
+
+devices:
+- Cardputer
