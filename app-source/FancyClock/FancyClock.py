@@ -1,6 +1,6 @@
 """A simple clock program for MicroHydra.
 
-v 1.3
+v 1.4
 """
 
 import random
@@ -12,6 +12,13 @@ from launcher.icons import battery
 from lib import battlevel, display
 from lib.hydra import color, loader
 from lib.userinput import UserInput
+
+try:
+    from machine import Pin, I2C
+    import ssd1306 as _ssd1306_mod
+    _has_ssd1306 = True
+except ImportError:
+    _has_ssd1306 = False
 
 
 tft = display.Display()
@@ -34,6 +41,41 @@ months_names = {
     11: 'Nov',
     12: 'Dec',
     }
+
+day_names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+
+# ── Glass2 Grove OLED (SSD1309, optional) ────────────────────────────────────
+_g2_ready = False
+_g2 = None
+_g2_view = 0   # 0 = datetime, 1 = battery
+_g2_prev_sec = -1
+
+if _has_ssd1306:
+    try:
+        _g2_i2c = I2C(0, scl=Pin(1), sda=Pin(2), freq=400000)
+        _g2_devices = _g2_i2c.scan()
+        if 0x3C in _g2_devices or 0x3D in _g2_devices:
+            _g2_addr = 0x3C if 0x3C in _g2_devices else 0x3D
+            _g2 = _ssd1306_mod.SSD1306_I2C(128, 64, _g2_i2c, addr=_g2_addr)
+            _g2_ready = True
+    except Exception:
+        pass
+
+
+def _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct):
+    if not _g2_ready:
+        return
+    _g2.fill(0)
+    if _g2_view == 0:
+        _g2.text(f"{hour_24:02d}:{minute:02d}:{second:02d}", 0, 4)
+        _g2.text(day_names[weekday], 0, 24)
+        _g2.text(f"{day} {months_names[month]} {year}", 0, 40)
+    else:
+        _g2.text("Battery", 0, 4)
+        _g2.text(f"{batt_pct}%", 0, 20)
+        voltage = 3.15 + (batt_pct / 100.0) * 1.05
+        _g2.text(f"~{voltage:.2f}V", 0, 36)
+    _g2.show()
 
 
 def hsv_to_rgb(HSV: tuple[float, float, float]) -> tuple[float, float, float]:
@@ -147,7 +189,7 @@ loop_timer = 0
 bright_timer = 0
 
 # init vals for loop timer stuff:
-_, month, day, hour_24, minute, _, _, _ = time.localtime()
+year, month, day, hour_24, minute, second, weekday, _ = time.localtime()
 hour_12 = hour_24 % 12
 if hour_12 == 0:
     hour_12 = 12
@@ -159,6 +201,7 @@ date_string = f"{months_names[month]},{day}"
 time_width = len(time_string) * 16
 date_width = len(date_string) * 8
 batfill_total_width = (time_width + 16) - (date_width + 4)
+batt_pct = batt.read_pct()
 
 
 while True:
@@ -167,7 +210,7 @@ while True:
     if loop_timer > 100:
         loop_timer = 0
 
-        _, month, day, hour_24, minute, _,_,_ = time.localtime()
+        year, month, day, hour_24, minute, second, weekday, _ = time.localtime()
 
         hour_12 = hour_24 % 12
         if hour_12 == 0:
@@ -183,9 +226,16 @@ while True:
         date_width = len(date_string) * 8
 
         batfill_total_width = (time_width + 16) - (date_width + 4)
+        batt_pct = batt.read_pct()
 
     else:
         loop_timer += 1
+        year, month, day, hour_24, minute, second, weekday, _ = time.localtime()
+
+    # update Glass2 once per second; skip entirely when display is idle
+    if _g2_ready and current_bright > 0 and second != _g2_prev_sec:
+        _g2_prev_sec = second
+        _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
 
 
 
@@ -299,6 +349,14 @@ while True:
     if pressed_keys != prev_pressed_keys:  # some button has been pressed
         if "G0" in pressed_keys:
             loader.launch_app()
+        if current_bright > 0:
+            # already awake — cycle Glass2 view
+            _g2_view = (_g2_view + 1) % 2
+            _g2_show(hour_24, minute, second, weekday, day, month, year, batt_pct)
+        elif _g2_ready:
+            # waking from idle — power OLED back on
+            _g2.poweron()
+            _g2_prev_sec = -1  # force immediate redraw
         current_bright = 10
         tft.set_brightness(current_bright)
         bright_timer = 0
@@ -309,6 +367,8 @@ while True:
     elif bright_timer >= 50 and current_bright > 0:
         current_bright -= 1
         tft.set_brightness(current_bright)
+        if current_bright == 0 and _g2_ready:
+            _g2.poweroff()
         bright_timer = 0
     else:
         bright_timer += 1
